@@ -1,1 +1,1 @@
-document.querySelector("h1").innerText="Boo"
+document.querySelector("h1").innerText="Nova Lang"

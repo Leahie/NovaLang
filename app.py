@@ -1,13 +1,21 @@
 from flask import Flask, render_template, request
+from datasets import load_from_disk
+from random import randint
+
+
+
 app = Flask(__name__)
 
+ds = load_from_disk('book-corpus')
 
 # ROUTE TO GENERATE THE FORM
 @app.route('/')
 def home():
-  # In the future all of this will be generated from the LLM 
+  # In the future all of this will be generated from the LLM
+  num =  randint(6, 1000)
+  word = ds['train']['text'][num-6:num]
   dic = {
-    'text': "Michelle's eyes slowly open. She's back on the mattress, thin blanket covering her again. A tray of food sits on the floor next to the bed. The two four and shovel are gone. Howard sits on a folding chair by the door, his forearm i now wrapped with a bandage where she hit him with the woo She peers at him through the dim light. Is he sleeping? props herself up. His voice cuts through the darkness, startling her",
+    'text': word,
     'modify-list': [2, 8, 10, 15, 19, 20],
     'modifiers': ['magically', 'organically', 'going']
   }

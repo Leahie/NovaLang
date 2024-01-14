@@ -1,9 +1,14 @@
 from transformers import AutoTokenizer
+import random
+import datasets
 from datasets import load_dataset
 
-dataset = load_dataset("bookcorpus")
-tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-print(dataset)
 
-sequence = dataset
-encoded_input = tokenizer(sequence, padding=True, truncation=True, return_tensors="pt")
+dataset = datasets.load_dataset('bookcorpus')
+word = dataset['train']['text'][5]
+print(word)
+
+def randomSen(data):
+    sentence = random.choice(data)
+
+

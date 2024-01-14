@@ -8,6 +8,10 @@ h1{
     inline-size: 70%;
     overflow: scroll;
     /*overflow-wrap: break-word; */
-    font-size: 8.5em;
     background-color: powderblue;
+}
+
+#text-corpus {
+    font-size: 5vw;
+    max-width: 100%;
 }

@@ -1,13 +1,32 @@
 from flask import Flask, render_template, request
+from random import randint
+
 app = Flask(__name__)
 
-
 # ROUTE TO GENERATE THE FORM
+def process(txt):
+  with open(txt, "r",encoding='utf-8') as file:
+      input_lines = [line.strip() for line in file]
+      lines = []
+      line = ""
+      for x in input_lines:
+          if len(x) > 2:
+              lines.append(line)
+              line = ""
+          if x != "":
+                  line += x
+        
+      return lines
+
+text = 'Pride_and_Prejudice_by_Jane_Austen.txt'
+lines = process(text)
 @app.route('/')
 def home():
+  num =  randint(6, 1000)
+  word = lines[num]
   # In the future all of this will be generated from the LLM 
   dic = {
-    'text': "Michelle's eyes slowly open. She's back on the mattress, thin blanket covering her again. A tray of food sits on the floor next to the bed. The two four and shovel are gone. Howard sits on a folding chair by the door, his forearm i now wrapped with a bandage where she hit him with the woo She peers at him through the dim light. Is he sleeping? props herself up. His voice cuts through the darkness, startling her",
+    'text': word, 
     'modify-list': [2, 8, 10, 15, 19, 20],
     'modifiers': ['magically', 'organically', 'going']
   }

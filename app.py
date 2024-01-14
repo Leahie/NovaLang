@@ -6,17 +6,16 @@ app = Flask(__name__)
 # ROUTE TO GENERATE THE FORM
 def process(txt):
   with open(txt, "r",encoding='utf-8') as file:
-      input_lines = [line.strip() for line in file]
-      lines = []
-      line = ""
-      for x in input_lines:
-          if len(x) > 2:
-              lines.append(line)
-              line = ""
-          if x != "":
-                  line += x
-        
-      return lines
+    input_lines = [line.strip() for line in file]
+    lines = []
+    line = ""
+    for x in input_lines:
+      if len(x) > 2:
+        line = line + " " + x
+      if x == "" and line != "":
+        lines.append(line)
+        line = ""        
+    return lines
 
 text = 'Pride_and_Prejudice_by_Jane_Austen.txt'
 lines = process(text)

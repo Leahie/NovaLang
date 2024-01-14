@@ -2,16 +2,19 @@ h1{
     color:blue
 }
 
+*{
+    text-align: center;
+}
+
 #text{
-    height: 50vh;
     margin: 2vh auto;
     inline-size: 70%;
     overflow: scroll;
+    height:45vh;
     /*overflow-wrap: break-word; */
     background-color: powderblue;
 }
 
 #text-corpus {
     font-size: 5vw;
-    max-width: 100%;
 }

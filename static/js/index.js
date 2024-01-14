@@ -12,11 +12,13 @@ window.addEventListener('keydown', e => {
         if (zoom == true){
             zoom = false;
             text.style = 'font-size: 1.5vw'
+            container.style = 'display: inline-block; height: unset'
         }
 
         else if (zoom == false){
             zoom = true;
             text.style = 'font-size: 5vw'
+            container.style = 'display: block; height: 45vh'
         }
     }
 });

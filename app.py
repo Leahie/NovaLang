@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from random import randint
-
 app = Flask(__name__)
+
 
 # ROUTE TO GENERATE THE FORM
 def process(txt):

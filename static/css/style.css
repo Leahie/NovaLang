@@ -7,7 +7,10 @@ h1{
     margin: 2vh auto;
     inline-size: 70%;
     overflow: scroll;
-    /*overflow-wrap: break-word; */
-    font-size: 8.5em;
     background-color: powderblue;
+}
+
+#text-corpus {
+    padding: 1vw;
+    font-size: 5vw;
 }

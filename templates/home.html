@@ -32,11 +32,22 @@
       <p id="text-corpus">{{data.text}}</p>
       
     </div>
-    <ul>
-      <li>{{data.modifiers[0]}}</li>
-      <li>{{data.modifiers[1]}}</li>
-      <li>{{data.modifiers[2]}}</li>
-    </ul>
+    <style>
+      ul.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    text-decoration:none;
+    color:#8C730C;
+}
+    </style>
+    <div id = "answers">
+      <ul class="no-bullets">
+        <li><a class = "options" href="#">{{data.modifiers[0]}}</a></li>
+        <li><a class = "options" href="#">{{data.modifiers[1]}}</a></li>
+        <li><a class = "options" href="#">{{data.modifiers[2]}}</a></li>
+      </ul>
+    </div>
     <script src="/static/js/index.js"></script>
 </body>
 </html>

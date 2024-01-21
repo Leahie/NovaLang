@@ -32,22 +32,13 @@
     <table>
       <tr>
         <td><div id = "text">
-          {% set count = 0 %}
-          <p id = "num">{{count}}</p>
-          <p id = "curr">{{data['modify-list'][count]}}</p>
+          <!-- The displays of these are invisible, they are here for the javascript -->
+          <p id = "textBody">{{data.text}}</p>
+          <p id = "modifyList">{{data['modify-list']}}</p>
 
-
-          <a id="#next" href="">↵</a>
-          <a id="#previous" href="">↳</a>
+          <!-- This is BLANK on purpose, javascript adds the text -->
           <p id="text-corpus">
-            {% for i in range(0, (data.text)|length) %}
-              {% if i == data['modify-list'][count] %}
-                <span id="{{count}}" style="color:red;">{{data.text[i]}}</span>
-              {% else %}
-                {{data.text[i]}}
-              {% endif %}
-              
-            {% endfor %}
+            
           </p>
         </div></td>
       </tr>
@@ -55,9 +46,9 @@
       <tr>
         <td><div id = "answers">
           <ul class="no-bullets">
-            <li><a class = "options ul_top_hypers" href="#">{{data.modifiers[0]}}</a></li>
-            <li><a class = "options ul_top_hypers"href="#">{{data.modifiers[1]}}</a></li>
-            <li><a class = "options ul_top_hypers" href="#">{{data.modifiers[2]}}</a></li>
+            <li><a class = "options ul_top_hypers" href="#" onclick="next()">{{data.modifiers[0]}}</a></li>
+            <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[1]}}</a></li>
+            <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[2]}}</a></li>
           </ul>
         </div></td>
       </tr>
@@ -66,35 +57,8 @@
     <script src="/static/js/index.js"></script>
 
     <script>
-      let count = document.querySelector('#num').innerHTML // This is how we get the index
-      let curr = document.querySelector('#curr').innerHTML 
-
-      let blank = document.getElementById(count).innerHTML 
-      console.log(count, curr, blank)
-      $(document).keydown(function(e) {
-        switch (e.which) {
-          case 37: // left
-            var href = $('#previous').attr('href');
-            window.location.href = href;
-            break;  
+      // Going back and forth between the words 
       
-          case 39: // right
-            
-            $(document).ready(function () {
-              window.location = `#${count}`;
-          });
-        }
-        e.preventDefault(); 
-      });
-
-      function makeLink(text, id) {
-         let a = document.createElement('a');
-         let link = document.createTextNode(text);
-         a.appendChild(link);
-         a.title = text;
-         a.href = "#Current"+id;
-
-        }
     </script>
 </body>
 </html>

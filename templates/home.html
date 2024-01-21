@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Lang</title>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-
+    <link rel="icon" type="image/x-icon" href="https://scontent-iad3-1.xx.fbcdn.net/v/t1.15752-9/411318483_740347187652895_1810951502881274159_n.png?_nc_cat=101&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=5Rrl17LGQdAAX-RahjQ&_nc_ht=scontent-iad3-1.xx&oh=03_AdTGnr3u3AejCrblYmqg90DM4VYb-hsvpiHVVmEdHeuLJQ&oe=65D4BBA1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
     <!-- NAV BAR -->
@@ -28,26 +29,58 @@
       </nav>
     <!-- MEAT OF THE WEBSITE -->
 
-    <div id = "text">
-      <p id="text-corpus">{{data.text}}</p>
-      
-    </div>
-    <style>
-      ul.no-bullets {
-    list-style-type: none; /* Remove bullets */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margins */
-    text-decoration:none;
-    color:#8C730C;
-}
-    </style>
-    <div id = "answers">
-      <ul class="no-bullets">
-        <li><a class = "options" href="#">{{data.modifiers[0]}}</a></li>
-        <li><a class = "options" href="#">{{data.modifiers[1]}}</a></li>
-        <li><a class = "options" href="#">{{data.modifiers[2]}}</a></li>
-      </ul>
-    </div>
+    <table>
+      <tr>
+        <td><div id = "text">
+          <p>{{data['modify-list']}}</p>
+          <a id="#next" href="">↵</a>
+          <a id="#previous" href="">↳</a>
+          <p id="text-corpus">
+            {% for element in (data.text) %}
+              {{ element }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+        </div></td>
+      </tr>
+
+      <tr>
+        <td><div id = "answers">
+          <ul class="no-bullets">
+            <li><a class = "options ul_top_hypers" href="#">{{data.modifiers[0]}}</a></li>
+            <li><a class = "options ul_top_hypers"href="#">{{data.modifiers[1]}}</a></li>
+            <li><a class = "options ul_top_hypers" href="#">{{data.modifiers[2]}}</a></li>
+          </ul>
+        </div></td>
+      </tr>
+    </table>
+
     <script src="/static/js/index.js"></script>
+
+    <script>
+      $(document).keydown(function(e) {
+        switch (e.which) {
+          case 37: // left
+            var href = $('#previous').attr('href');
+            window.location.href = href;
+            break;  
+      
+          case 39: // right
+            var href = $('#next').attr('href');
+            window.location.href = href;
+            break;
+        }
+        e.preventDefault(); 
+      });
+
+      // function makeLink(text, id) {
+      //   let a = document.createElement('a');
+      //   let link = document.createTextNode(text);
+      //   a.appendChild(link);
+      //   a.title = text;
+      //   a.href = "#Current"+id;
+      //   document.
+
+      // }
+    </script>
 </body>
 </html>

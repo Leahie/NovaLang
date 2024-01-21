@@ -23,9 +23,11 @@ lines = process(text)
 def home():
   num =  randint(6, 1000)
   word = lines[num]
+  x = word.split(' ')
+
   # In the future all of this will be generated from the LLM 
   dic = {
-    'text': word, 
+    'text': x, 
     'modify-list': [2, 8, 10, 15, 19, 20],
     'modifiers': ['magically', 'organically', 'going']
   }

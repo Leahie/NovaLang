@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from random import randint
-import random
+
+from random import choices
 app = Flask(__name__)
 
 
@@ -27,9 +28,9 @@ def home():
   word = lines[num]
   x = word.split(' ')
 
-  inputNumbers = range(0, len(x))
+  inputNumbers = [i for i in range(6, len(x))]
   print(inputNumbers)
-  mod = random.choices(inputNumbers, k=(len(x)//10))
+  mod = choices(inputNumbers, k=(len(x)//10)+1)
   print(mod)
   mod.sort()
   print(mod)

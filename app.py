@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from random import randint
+import random
 app = Flask(__name__)
 
 
@@ -22,13 +23,21 @@ lines = process(text)
 @app.route('/')
 def home():
   num =  randint(6, 1000)
+  # Word is actually a sentence, because lines is actually a lot of setences  
   word = lines[num]
   x = word.split(' ')
+
+  inputNumbers = range(0, len(x))
+  print(inputNumbers)
+  mod = random.choices(inputNumbers, k=(len(x)//10))
+  print(mod)
+  mod.sort()
+  print(mod)
 
   # In the future all of this will be generated from the LLM 
   dic = {
     'text': x, 
-    'modify-list': [2, 8, 10, 15, 19, 20],
+    'modify-list': mod,
     'modifiers': ['magically', 'organically', 'going']
   }
   return render_template('home.html', data=dic)

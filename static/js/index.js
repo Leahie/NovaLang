@@ -110,7 +110,7 @@ window.addEventListener('keydown', e => {
             zoom = true;
             text.style = 'font-size: 5vw'
             container.style = 'display: block; height: 45vh'
-            document.getElementById(count).scrollIntoView()({
+            document.getElementById(countTemp).scrollIntoView()({
                 behavior: 'smooth'
             });
         }

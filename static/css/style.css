@@ -10,6 +10,11 @@ h1{
   text-align: center;
 }
 
+body {
+  text-align: center;
+  overflow-x: none;
+}
+
 #text{
   margin: 2vh auto;
   inline-size: 70%;
@@ -19,6 +24,12 @@ h1{
   /*overflow-wrap: break-word; */
   background-color: powderblue;
   scroll-behavior: smooth;
+}
+
+#tryingtocenterthiszoomthinghelpp {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 #text-corpus {

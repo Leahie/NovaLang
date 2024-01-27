@@ -109,7 +109,7 @@ window.addEventListener('keydown', e => {
         else if (zoom == false){
             zoom = true;
             text.style = 'font-size: 5vw'
-            container.style = 'display: block; height: 45vh'
+            container.style = 'display: inline-block; height: 45vh'
             document.getElementById(countTemp).scrollIntoView()({
                 behavior: 'smooth'
             });

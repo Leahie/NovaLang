@@ -29,30 +29,32 @@
       </nav>
     <!-- MEAT OF THE WEBSITE -->
 
-    <table>
-      <tr>
-        <td><div id = "text">
-          <!-- The displays of these are invisible, they are here for the javascript -->
-          <p id = "textBody">{{data.text}}</p>
-          <p id = "modifyList">{{data['modify-list']}}</p>
+    <div id="tryingtocenterthiszoomthinghelpp">
+      <table>
+        <tr>
+          <td><div id = "text">
+            <!-- The displays of these are invisible, they are here for the javascript -->
+            <p id = "textBody">{{data.text}}</p>
+            <p id = "modifyList">{{data['modify-list']}}</p>
 
-          <!-- This is BLANK on purpose, javascript adds the text -->
-          <p id="text-corpus">
-            
-          </p>
-        </div></td>
-      </tr>
+            <!-- This is BLANK on purpose, javascript adds the text -->
+            <p id="text-corpus">
+              
+            </p>
+          </div></td>
+        </tr>
 
-      <tr>
-        <td><div id = "answers">
-          <ul class="no-bullets">
-            <li><a class = "options ul_top_hypers" href="#" onclick="next()">{{data.modifiers[0]}}</a></li>
-            <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[1]}}</a></li>
-            <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[2]}}</a></li>
-          </ul>
-        </div></td>
-      </tr>
-    </table>
+        <tr>
+          <td><div id = "answers">
+            <ul class="no-bullets">
+              <li><a class = "options ul_top_hypers" href="#" onclick="next()">{{data.modifiers[0]}}</a></li>
+              <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[1]}}</a></li>
+              <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[2]}}</a></li>
+            </ul>
+          </div></td>
+        </tr>
+      </table>
+    </div>
 
     <script src="/static/js/index.js"></script>
 

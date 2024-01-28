@@ -3,7 +3,7 @@
 /* austen teach */
 
 h1{
-    color:blue
+    color:rgb(0, 0, 0)
 }
 
 *{
@@ -16,20 +16,49 @@ h1{
     overflow: scroll;
     height:45vh;
     /*overflow-wrap: break-word; */
-    background-color: powderblue;
+    background-color: rgb(244, 85, 193);
 }
 
 #text-corpus {
     font-size: 5vw;
 }
 
-
-a.options {
+a.option1 {
     display: inline-block;
-    background-color: #3C0753;
+    background-color: #41e686;
     border-radius: 10px;
     border: 4px double #3C0753;
-    color:#8C730C;
+    color:#000000;
+    text-align: center;
+    font-size: 14px;
+    padding: 20px;
+    width: 225px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    text-decoration: none;
+  }
+  a.option2 {
+    display: inline-block;
+    background-color: #e64141;
+    border-radius: 10px;
+    border: 4px double #3C0753;
+    color:#000000;
+    text-align: center;
+    font-size: 14px;
+    padding: 20px;
+    width: 225px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    text-decoration: none;
+  }
+  a.option3 {
+    display: inline-block;
+    background-color: #9273f6;
+    border-radius: 10px;
+    border: 4px double #3C0753;
+    color:#000000;
     text-align: center;
     font-size: 14px;
     padding: 20px;

@@ -38,6 +38,25 @@ if(FirstTime == true){
     FirstTime = false
 }
 
+//pressing button keys
+/*var option1 = document.getElementsByClassName('option1 ul_top_hypers');
+var option2 = document.getElementsByClassName('option2 ul_top_hypers');
+var option3 = document.getElementsByClassName('option3 ul_top_hypers');
+
+option1.addEventListener("keypress", function(event)
+{
+    if(event.key === "1"){
+        event.preventDefault();
+        document.getElementsByClassName('option1 ul_top_hypers').click();
+    }
+});*/
+
+$(document).keydown(function(e){
+    switch (e.which){
+        
+    }
+})
+
 $(document).keydown(function(e) {
 switch (e.which) {
     case 37: // left
@@ -98,13 +117,14 @@ let container = document.getElementById("text");
 let text = document.getElementById("text-corpus");
 
 window.addEventListener('keydown', e => {
-    switch (e.key) {
+    switch (e.key) { 
         case ' ':
         if (zoom == true){
             zoom = false;
             text.style = 'font-size: 1.5vw'
             container.style = 'display: inline-block; height: unset'
         }
+    
 
         else if (zoom == false){
             zoom = true;
@@ -114,5 +134,7 @@ window.addEventListener('keydown', e => {
                 behavior: 'smooth'
             });
         }
+
     }
 });
+

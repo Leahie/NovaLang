@@ -1,4 +1,5 @@
 /* austen edit test */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;1,300&display=swap');
 
 /* austen teach */
 
@@ -22,8 +23,14 @@ body {
   overflow-x: none;
   height:45vh;
   /*overflow-wrap: break-word; */
-  background-color: powderblue;
+  background-color: #FBFBFF;
   scroll-behavior: smooth;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+
+.header{
+  font-family: 'Montserrat', sans-serif;
 }
 
 #tryingtocenterthiszoomthinghelpp {
@@ -31,6 +38,7 @@ body {
   justify-content: center;
   text-align: center;
 }
+
 
 #text-corpus {
   font-size: 5vw;
@@ -61,6 +69,8 @@ td #answers {
 li{
   display: inline;
   padding: 2.5vw;
+  font-family:'Montserrat', sans-serif;
+  font-weight:500;
 }
 a.option1 {
   display: inline-block;
@@ -115,29 +125,6 @@ a span.options {
   transition: 0.5s;
 }
 
-a span:after.options {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-a:hover.options {
-  background-color: #61A0AF;
-  color:#F5D491;
-  border: 4px double #F5D491;
-}
-
-a:hover span.options {
-  padding-right: 25px;
-}
-
-a:hover span:after.options {
-  opacity: 1;
-  right: 0;
-}
 
 #div_top_hypers {
   background-color:#eeeeee;

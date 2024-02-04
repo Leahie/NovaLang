@@ -5,15 +5,16 @@ from random import choices
 app = Flask(__name__)
 
 
-# ROUTE TO GENERATE THE FORM
+# FUNCTION TO GENERATE THE FORM
 def process(txt):
   with open(txt, "r",encoding='utf-8') as file:
     input_lines = [line.strip() for line in file]
     lines = []
     line = ""
     for x in input_lines:
-      if len(x) > 2:
-        line = line + " " + x
+      if len(x) > 2: # getting rid of chapter/numbers, if numbers, punctuation 
+        if "_" not in x:
+          line = line + " " + x
       if x == "" and line != "":
         lines.append(line)
         line = ""        

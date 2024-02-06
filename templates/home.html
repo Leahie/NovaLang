@@ -38,6 +38,7 @@
             <p id = "modifyList">{{data['modify-list']}}</p>
 
             <!-- This is BLANK on purpose, javascript adds the text -->
+            <p id = "choices"></p>
             <p id="text-corpus">
               
             </p>
@@ -47,9 +48,9 @@
         <tr>
           <td><div id = "answers">
             <ul class="no-bullets">
-              <li><a class = "option1 ul_top_hypers" href="#" onclick="next()">{{data.modifiers[0]}}</a></li>
-              <li><a class = "option2 ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[1]}}</a></li>
-              <li><a class = "option3 ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[2]}}</a></li>
+              <li><a class = "option1 modifiers" href="#" onclick="next(0)">{{data.modifiers[0]}}</a></li>
+              <li><a class = "option2 modifiers" href="#"  onclick="next(1)">{{data.modifiers[1]}}</a></li>
+              <li><a class = "option3 modifiers" href="#"  onclick="next(2)">{{data.modifiers[2]}}</a></li>
             </ul>
           </div></td>
         </tr>

@@ -3,9 +3,12 @@
 // description: zooming in/out functionality
 
 
-
+//Globals
 let count = 0
 let countTemp = 0
+let modifiers = {}
+
+
 FirstTime = true
 let textBody =  document.querySelector('#textBody').innerHTML // This is how we get the index
 textBody = textBody.replace(/'/g, '"') //replacing all ' with "
@@ -18,7 +21,7 @@ modifyList = JSON.parse(modifyList)
 console.log( textBody, modifyList)
 
 let selected = textBody[modifyList[count]]
-console.log(selected)
+
 
 if(FirstTime == true){
     let textCorpus = document.querySelector("#text-corpus")
@@ -31,7 +34,7 @@ if(FirstTime == true){
         temp = temp + " " + textBody[i]
     }
     }
-    console.log(temp)
+
     textCorpus.innerHTML = temp
 
     
@@ -51,42 +54,52 @@ option1.addEventListener("keypress", function(event)
     }
 });*/
 
-$(document).keydown(function(e){
-    switch (e.which){
-        
-    }
-})
 
 $(document).keydown(function(e) {
 switch (e.which) {
     case 37: // left
-    next(false, -1, countTemp);
-    break;  
+        next(null, false, -1, countTemp);
+        break;  
 
     case 39: // right
-    next(false, 1, countTemp)
-    break;
+        next(null, false, 1, countTemp)
+        break;
+
+    case 49:
+        next(0)
+
+    case 50:
+        next(1)
+
+    case 51:
+        next(2)
 }
 e.preventDefault(); 
 });
 
 // Pressing one of the lis 
-function next(countTrue=true, add=1, curr=count){
+function next(option, countTrue=true, add=1, curr=count){
 if(countTrue){
     if(count+1 < modifyList.length){
-    count+=1
-    countTemp = count
-    selected = textBody[modifyList[count]]
-    console.log(selected)
-    generateText(count)
-    
+        let currOpt = document.querySelectorAll(".modifiers")
+        console.log(option)
+        console.log(currOpt[option])
+        modifiers[count] = currOpt[option].innerHTML
+        let choices = document.querySelector("#choices")
+        choices.innerText = JSON.stringify(modifiers)
+        console.log(modifiers)
+
+        count+=1
+        countTemp = count
+        selected = textBody[modifyList[count]]
+        console.log(modifiers)
+        generateText(count)
     }
 }
 else{
     if(curr+add <= count && curr+add >=0){
     countTemp+=add
     selected = textBody[modifyList[countTemp]]
-    console.log(selected)
     generateText(countTemp)
     
     }
@@ -103,7 +116,7 @@ for( let i = 0; i < textBody.length; i++  ){
     temp = temp + " " + textBody[i]
     }
 }
-console.log(temp)
+
 textCorpus.innerHTML = temp
 
 document.getElementById(curr).scrollIntoView()({

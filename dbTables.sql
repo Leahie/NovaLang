@@ -39,6 +39,6 @@ CREATE TABLE level (
 INSERT INTO level 
 (level_id, level_accID, level_author, level_text, level_status)
 VALUES
--- guys pls help i have no idea how booleans in sql work, how do u insert true/false vals bruh helpplplpplp
+-- !DO -- @everyone --> guys pls help i have no idea how booleans in sql work, how do u insert true/false vals bruh helpplplpplp
 (1000, 0, "Eiichiro Oda", "One Piece Ch. 967", TRUE),
 (1001, 0, "Eiichiro Oda", "One Piece Ch. 1044", FALSE);

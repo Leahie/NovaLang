@@ -20,11 +20,11 @@ def process(txt):
         line = ""        
     return lines
 
-text = 'Pride_and_Prejudice_by_Jane_Austen.txt'
+text = './ml/Pride_and_Prejudice_by_Jane_Austen.txt'
 lines = process(text)
 
-@app.route('/')
-def home():
+@app.route('/nova')
+def nova():
 
   # !NOTE: @LEAH -- In the future all of this will be generated from the LLM 
   # {{{
@@ -32,7 +32,7 @@ def home():
   num =  randint(6, 1000) #randomly selects an index corresponding to a sentence from the text
   word = lines[num] # Word is actually a sentence, because lines is actually a lot of setences  
   x = word.split(' ') #makes the sentence into an array, with each element being split by a space
-  print("x:", x)
+  # print("x:", x)
   
   # !CHECK: @LEAH --> not exactly sure if numBlanks is actually the number of blanks; double check porfa
   numBlanks = 6 #how many blanks there will be
@@ -40,14 +40,14 @@ def home():
     numBlanks = len(x)-1
   elif len(x) == 6: #if the sentence chosen is shorter than 6 words, the number of blanks will be 3
     numBlanks = 3
-  print("numBlanks:", numBlanks)
+  # print("numBlanks:", numBlanks)
 
   inputNumbers = [i for i in range(numBlanks, len(x))] #a list of the indicies from the numBlanks to length of the split sentence
-  print("input:", inputNumbers)
+  # print("input:", inputNumbers)
   
   mod = choices(inputNumbers, k=(len(x)//10)+1) # !DO: @LEAH --> what does this line do?????? comment porfa
   mod.sort() #sorts the list of indicies smallest to largest
-  print("mod:", mod)
+  # print("mod:", mod)
 
 
   dic = {
@@ -58,6 +58,14 @@ def home():
   # }}}
 
   return render_template('home.html', data=dic)
+
+@app.route('/')
+def home():
+  return render_template('landing.html')
+
+@app.route('/tutorial')
+def tutorial():
+  return render_template('tutorial.html')
 
 app.debug = True
 if __name__ == '__main__':

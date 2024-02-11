@@ -4,7 +4,8 @@
 /* austen teach */
 
 h1{
-  color:blue
+  color:blue;
+  font-family: 'Montserrat', sans-serif;
 }
 
 * {
@@ -28,7 +29,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
 }
-
 .header{
   font-family: 'Montserrat', sans-serif;
 }

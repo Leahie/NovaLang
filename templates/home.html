@@ -12,17 +12,17 @@
 </head>
 <body>
     <!-- NAV BAR -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id = "heading">
+        <div class="container-fluid heading">
           <a class="navbar-brand" href="/">Nova Lang</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="/">Writer 1</a>
-              <a class="nav-link" href="/">Writer 2</a>
-              <a class="nav-link" href="/">Writer 3 </a>
+              <a class="nav-link active" id = "heading" aria-current="page" href="/">Writer 1</a>
+              <a class="nav-link " id = "heading" href="/">Writer 2</a>
+              <a class="nav-link " id = "heading" href="/">Writer 3 </a>
             </div>
           </div>
         </div>
@@ -38,6 +38,7 @@
             <p id = "modifyList">{{data['modify-list']}}</p>
 
             <!-- This is BLANK on purpose, javascript adds the text -->
+            <p id = "choices"></p>
             <p id="text-corpus">
               
             </p>
@@ -47,9 +48,9 @@
         <tr>
           <td><div id = "answers">
             <ul class="no-bullets">
-              <li><a class = "options ul_top_hypers" href="#" onclick="next()">{{data.modifiers[0]}}</a></li>
-              <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[1]}}</a></li>
-              <li><a class = "options ul_top_hypers" href="#"  onclick="next()">{{data.modifiers[2]}}</a></li>
+              <li><a class = "option1 modifiers" href="#" onclick="next(0)">{{data.modifiers[0]}}</a></li>
+              <li><a class = "option2 modifiers" href="#"  onclick="next(1)">{{data.modifiers[1]}}</a></li>
+              <li><a class = "option3 modifiers" href="#"  onclick="next(2)">{{data.modifiers[2]}}</a></li>
             </ul>
           </div></td>
         </tr>

@@ -40,6 +40,8 @@
           {
               darkmodeSwitch.classList.add('active');
               document.body.classList.add('darkmode');
+              document.getElementById('text').classList.add('darkmode');
+              document.getElementById('heading').classList.add('darkmode');
           }
 
 
@@ -47,6 +49,8 @@
               event.preventDefault();
               event.target.classList.toggle('active');
               document.body.classList.toggle('darkmode');
+              document.getElementById('text').classList.toggle('darkmode');
+              document.getElementById('heading').classList.toggle('darkmode');
 
               if(document.body.classList.contains('darkmode'))
               {
@@ -103,12 +107,12 @@
           border-radius:50%;
           transform:translateY(-50%);
       }
-      #heading.darkmode{
-        
-      }
       header .darkmode.active::before{
           left:auto;
           right:4px;
+      }
+      #text.darkmode{
+        background-color: #000007;
       }
       main{
           padding:6rem;
@@ -117,14 +121,14 @@
 </head>
 <body>
     <!-- NAV BAR -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary darkmode" id = "heading">
-        <div class="container-fluid heading">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id = "heading">
+        <div class="container-fluid heading" id = "navigation">
           <a class="navbar-brand" href="/">Nova Lang</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav" id = "minn">
               <a class="nav-link active" id = "heading" aria-current="page" href="/nova">Nova</a>
               <a class="nav-link " id = "heading" href="/tutorial">Tutorial</a>
               <a class="nav-link " id = "heading" href="/">Writer 3 </a>
@@ -139,8 +143,8 @@
 
     <div id="tryingtocenterthiszoomthinghelpp">
       <table>
-        <tr>
-          <td><div id = "text" class="darkmode">
+        <tr class = "darkmode">
+          <td><div id = "text">
             <!-- The displays of these are invisible, they are here for the javascript -->
             <p id = "textBody">{{data.text}}</p>
             <p id = "modifyList">{{data['modify-list']}}</p>

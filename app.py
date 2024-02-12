@@ -67,6 +67,10 @@ def home():
 def tutorial():
   return render_template('tutorial.html')
 
+@app.route('/*')
+def errorNotFound():
+  return render_template("404.html")
+
 app.debug = True
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=80)

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Nova Lang Tutorial</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <link rel="icon" type="image/x-icon" href="https://scontent-iad3-1.xx.fbcdn.net/v/t1.15752-9/411318483_740347187652895_1810951502881274159_n.png?_nc_cat=101&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=5Rrl17LGQdAAX-RahjQ&_nc_ht=scontent-iad3-1.xx&oh=03_AdTGnr3u3AejCrblYmqg90DM4VYb-hsvpiHVVmEdHeuLJQ&oe=65D4BBA1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" id = "heading">
+            <div class="container-fluid heading">
+              <a class="navbar-brand" href="/">Nova Lang</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link active" id = "heading" aria-current="page" href="/nova">Nova</a>
+                  <a class="nav-link " id = "heading" href="/tutorial">Tutorial</a>
+                  <a class="nav-link " id = "heading" href="/">Writer 3 </a>
+                </div>
+              </div>
+            </div>
+          </nav>
+        <style>
+          span {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(4px);
+          }
+
+          span:nth-child(1) {
+            animation: fader-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(2) {
+            animation: fader-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(3) {
+            animation: fader-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(4) {
+            animation: fader-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(5) {
+            animation: fader-in 0.8s 0.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(6) {
+            animation: fader-in 0.8s 0.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(7) {
+            animation: fader-in 0.8s 0.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(8) {
+            animation: fader-in 0.8s 0.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(9) {
+            animation: fader-in 0.8s 0.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(10) {
+            animation: fader-in 0.8s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(11) {
+            animation: fader-in 0.8s 1.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(12) {
+            animation: fader-in 0.8s 1.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(13) {
+            animation: fader-in 0.8s 1.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(14) {
+            animation: fader-in 0.8s 1.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(15) {
+            animation: fader-in 0.8s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(16) {
+            animation: fader-in 0.8s 1.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(17) {
+            animation: fader-in 0.8s 1.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+
+          span:nth-child(18) {
+            animation: fader-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+          }
+          @keyframes fader-in {
+          100% {
+            opacity: 1;
+            filter: blur(0);
+          }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0 }
+              to { opacity: 1 }
+        }
+
+        @keyframes fade-out {
+            from { opacity: 1 }
+              to { opacity: 0 }
+        }
+        </style>
+        <script>
+          const express = require("express");
+          const app = express();
+        </script>
+        <h1>404: Uh oh! We couldn't find that page!</h1>
+        <h3>
+          <span>Apologies,</span>
+          <span>but</span>
+          <span>the</span>
+          <span>page</span>
+          <span>you</span>
+          <span>were</span>
+          <span>trying</span>
+          <span>to</span>
+          <span>look</span>
+          <span>for</span>
+          <span>does</span>
+          <span>not</span>
+          <span>exist!</span>
+          <span>Maybe</span>
+          <span>try</span>
+          <span>heading</span>
+          <span>home by</span>
+          <span><a href = "/">clicking here!</a></span>
+        </h3>
+    </body>
+</html>

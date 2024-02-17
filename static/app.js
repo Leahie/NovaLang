@@ -1,13 +1,11 @@
-//document.querySelector("h1").innerText="Nova Lang" don't use, just an example of querySelector
-// zoom.js
-// description: zooming in/out functionality
-
 
 //Globals
 let count = 0
 let countTemp = 0
 let modifiers = {}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//going through the text 
 
 FirstTime = true
 let textBody =  document.querySelector('#textBody').innerHTML // This is how we get the index
@@ -40,19 +38,6 @@ if(FirstTime == true){
     
     FirstTime = false
 }
-
-//pressing button keys
-/*var option1 = document.getElementsByClassName('option1 ul_top_hypers');
-var option2 = document.getElementsByClassName('option2 ul_top_hypers');
-var option3 = document.getElementsByClassName('option3 ul_top_hypers');
-
-option1.addEventListener("keypress", function(event)
-{
-    if(event.key === "1"){
-        event.preventDefault();
-        document.getElementsByClassName('option1 ul_top_hypers').click();
-    }
-});*/
 
 
 $(document).keydown(function(e) {
@@ -150,18 +135,72 @@ window.addEventListener('keydown', e => {
 
     }
 });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Dark Mode 
 
-// const express = require("express");
-// const app = express();
+function darkmode_init()
+      {
+          let darkmodeSwitch = document.querySelector('header .darkmode');
 
-// app.use(express.static(__dirname + "/templates"), (_, res, next) => {
-//   res.status(404)
-//   res.sendFile(__dirname + "/404")
-// });
+          let darkmodeCookie = {
+              set:function(key,value,time,path,secure=false)
+              {
+                  let expires = new Date();
+                  expires.setTime(expires.getTime() + time);
+                  var path   = (typeof path !== 'undefined') ? pathValue = 'path=' + path + ';' : '';
+                  var secure = (secure) ? ';secure' : '';
 
-// app.listen(8080);
+                  document.cookie = key + '=' + value + ';' + path + 'expires=' + expires.toUTCString() + secure;
+              },
+              get:function()
+              {
+                  let keyValue = document.cookie.match('(^|;) ?darkmode=([^;]*)(;|$)');
+                  return keyValue ? keyValue[2] : null;
+              },
+              remove:function()
+              {
+                  document.cookie = 'darkmode=; Max-Age=0; path=/';
+              }
+          };
 
+
+          if(darkmodeCookie.get() == 'true')
+          {
+              darkmodeSwitch.classList.add('active');
+              document.body.classList.add('darkmode');
+              document.getElementById('text').classList.add('darkmode');
+              document.getElementById('heading').classList.add('darkmode');
+              // div_top_hypers.style = "background-color: #212121;"
+          }
+
+
+          darkmodeSwitch.addEventListener('click', (event) => {
+              event.preventDefault();
+              event.target.classList.toggle('active');
+              document.body.classList.toggle('darkmode');
+              document.getElementById('text').classList.toggle('darkmode');
+              document.getElementById('heading').classList.toggle('darkmode');
+
+              if(document.body.classList.contains('darkmode'))
+              {
+                  darkmodeCookie.set('darkmode','true',2628000000,'/',false);
+              }
+              else
+              {
+                  darkmodeCookie.remove();
+              }
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded',function()
+      {
+          darkmode_init();
+      });
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Austen smooth animation  
 document.addEventListener("DOMContentLoaded", function () {
+  
     // Variable to track whether an animation is in progress
     let isAnimating = false;
   
@@ -267,4 +306,3 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-  

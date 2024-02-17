@@ -135,4 +135,39 @@ a span.options {
     display: inline;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1700460183.1708041600&semt=ais') center center no-repeat;
+  background-size: cover;
+  opacity: 0;
+  z-index: 9999;
+  transition: opacity 1s ease-out;
+  /* Add this line */
+  display: none;
+  /* Add this line */
+}
 
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+
+  to {
+      opacity: 0;
+  }
+}

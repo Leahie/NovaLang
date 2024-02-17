@@ -13,128 +13,239 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+        
     </head>
     <body>
-        <style>
-          span {
-            display: inline-block;
-            opacity: 0;
-            filter: blur(4px);
-          }
+        <div id = "content">
+            <style>
+            span {
+                display: inline-block;
+                opacity: 0;
+                filter: blur(4px);
+            }
 
-          span:nth-child(1) {
-            animation: fader-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(1) {
+                animation: fader-in 0.8s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(2) {
-            animation: fader-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(2) {
+                animation: fader-in 0.8s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(3) {
-            animation: fader-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(3) {
+                animation: fader-in 0.8s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(4) {
-            animation: fader-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(4) {
+                animation: fader-in 0.8s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(5) {
-            animation: fader-in 0.8s 0.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(5) {
+                animation: fader-in 0.8s 0.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(6) {
-            animation: fader-in 0.8s 0.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(6) {
+                animation: fader-in 0.8s 0.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(7) {
-            animation: fader-in 0.8s 0.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(7) {
+                animation: fader-in 0.8s 0.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(8) {
-            animation: fader-in 0.8s 0.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(8) {
+                animation: fader-in 0.8s 0.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(9) {
-            animation: fader-in 0.8s 0.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(9) {
+                animation: fader-in 0.8s 0.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(10) {
-            animation: fader-in 0.8s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(10) {
+                animation: fader-in 0.8s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(11) {
-            animation: fader-in 0.8s 1.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(11) {
+                animation: fader-in 0.8s 1.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(12) {
-            animation: fader-in 0.8s 1.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(12) {
+                animation: fader-in 0.8s 1.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(13) {
-            animation: fader-in 0.8s 1.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(13) {
+                animation: fader-in 0.8s 1.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(14) {
-            animation: fader-in 0.8s 1.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(14) {
+                animation: fader-in 0.8s 1.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(15) {
-            animation: fader-in 0.8s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(15) {
+                animation: fader-in 0.8s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(16) {
-            animation: fader-in 0.8s 1.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(16) {
+                animation: fader-in 0.8s 1.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(17) {
-            animation: fader-in 0.8s 1.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
+            span:nth-child(17) {
+                animation: fader-in 0.8s 1.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
 
-          span:nth-child(18) {
-            animation: fader-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
-          }
-          @keyframes fader-in {
-          100% {
-            opacity: 1;
-            filter: blur(0);
-          }
-        }
+            span:nth-child(18) {
+                animation: fader-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+            }
+            @keyframes fader-in {
+            100% {
+                opacity: 1;
+                filter: blur(0);
+            }
+            }
 
-        @keyframes fade-in {
-            from { opacity: 0 }
-              to { opacity: 1 }
-        }
+            @keyframes fade-in {
+                from { opacity: 0 }
+                to { opacity: 1 }
+            }
 
-        @keyframes fade-out {
-            from { opacity: 1 }
-              to { opacity: 0 }
-        }
-        </style>
-        <script>
-          const express = require("express");
-          const app = express();
-        </script>
-        <h1>404: Uh oh! We couldn't find that page!</h1>
-        <h3>
-          <span>Apologies,</span>
-          <span>but</span>
-          <span>the</span>
-          <span>page</span>
-          <span>you</span>
-          <span>were</span>
-          <span>trying</span>
-          <span>to</span>
-          <span>look</span>
-          <span>for</span>
-          <span>does</span>
-          <span>not</span>
-          <span>exist!</span>
-          <span>Maybe</span>
-          <span>try</span>
-          <span>heading</span>
-          <span>home by</span>
-          <span><a href = "/">clicking here!</a></span>
-        </h3>
+            @keyframes fade-out {
+                from { opacity: 1 }
+                to { opacity: 0 }
+            }
+            </style>
+            <script>
+            const express = require("express");
+            const app = express();
+            </script>
+            <h1>404: Uh oh! We couldn't find that page!</h1>
+            <h3>
+            <span>Apologies,</span>
+            <span>but</span>
+            <span>the</span>
+            <span>page</span>
+            <span>you</span>
+            <span>were</span>
+            <span>trying</span>
+            <span>to</span>
+            <span>look</span>
+            <span>for</span>
+            <span>does</span>
+            <span>not</span>
+            <span>exist!</span>
+            <span>Maybe</span>
+            <span>try</span>
+            <span>heading</span>
+            <span>home by</span>
+            <span><a href = "/" class = "ajax-link">clicking here!</a></span>
+            </h3>
+        </div>
     </body>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    // Variable to track whether an animation is in progress
+    let isAnimating = false;
+  
+    // Create and append the overlay
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    document.body.appendChild(overlay);
+  
+    // Function to handle the overlay animations
+    function handleOverlayAnimation(overlay) {
+      // Listen for the transitionend event
+      overlay.addEventListener('transitionend', function () {
+        // Hide the overlay after the transition ends
+        overlay.style.display = 'none';
+  
+        // Set a timeout before allowing the next animation
+        setTimeout(function () {
+          isAnimating = false;
+        }, 1000); // Set your desired delay in milliseconds
+      });
+  
+      // Ensure the transition is triggered by changing the opacity in the next frame
+      requestAnimationFrame(function () {
+        overlay.style.opacity = 0;
+      });
+  
+      // Disable pointer events during the transition
+      overlay.style.pointerEvents = 'none';
+    }
+  
+    // Create a function that adds the click event listener to each link
+    function addLinkListener() {
+      // Get all the links with the class 'ajax-link'
+      const ajaxLinks = document.querySelectorAll('.ajax-link');
+  
+      // Remove existing click event listeners from all links
+      ajaxLinks.forEach(function (link) {
+        link.removeEventListener('click', ajaxLinkClick);
+      });
+  
+      // Add click event listener to each link
+      ajaxLinks.forEach(function (link) {
+        link.addEventListener('click', ajaxLinkClick);
+      });
+    }
+  
+    // Separate the click event handling function for clarity
+    function ajaxLinkClick(event) {
+      event.preventDefault();
+  
+      // Check if an animation is already in progress
+      if (isAnimating) {
+        return;
+      }
+  
+      isAnimating = true;
+  
+      // Show the overlay
+      overlay.style.display = 'block';
+      overlay.style.opacity = 1;
+  
+      // Fetch the content of the target URL using AJAX and return a promise
+      fetch(this.href)
+        .then(response => response.text())
+        .then(html => {
+          const content = document.getElementById('content');
+          content.innerHTML = html;
+  
+          // Update the state object with the new content
+          history.replaceState({url: this.href, html: html}, '', this.href);
+  
+          // Handle overlay animations
+          handleOverlayAnimation(overlay);
+  
+          // Re-attach the event listeners to the links
+          addLinkListener();
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Something went wrong. Please try again.');
+          // Handle overlay animations
+          handleOverlayAnimation(overlay);
+        });
+    }
+  
+    // Call the function to add the initial event listeners
+    addLinkListener();
+  
+    // Add popstate event listener to handle the back and forward buttons
+    window.addEventListener('popstate', function (event) {
+      // Check if the event has a state object
+      if (event.state) {
+        // Get the URL and the HTML from the state object
+        const url = event.state.url;
+        const html = event.state.html;
+  
+        // Update the content element with the HTML
+        const content = document.getElementById('content');
+        content.innerHTML = html;
+  
+        // Re-attach the event listeners to the links
+        addLinkListener();
+      }
+    });
+  });
+    </script>
 </html>

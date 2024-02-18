@@ -69,8 +69,17 @@ app.get('/nova', async (req, res)=>{
     res.render("pages/home",  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
 })
 
-app.get('/tutorial', (req,res)=>{
-    res.render('pages/tutorial')
+app.get('/tutorial', async (req,res)=>{
+    let lines = await process(text);//generates the whole 
+    let index = Math.floor(Math.random() * lines.length);
+    let sentence = lines[index].split(" ");//makes the sentence a list 
+    console.log( lines[index], sentence)
+    let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
+    console.log(Math.floor(sentence.length/10)+1)
+    nums = nums.sort(function(a, b){return a-b})
+    console.log(nums)
+    
+    res.render('pages/tutorial',  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
 })
 
 app.get('/*', (req, res) => {

@@ -1,6 +1,22 @@
 /* austen edit test */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;1,300&display=swap');
 
+/* Home Page*/
+#home-nav{
+  border-radius: 2em;
+  margin: 0em 10em;
+  padding: 0em;
+}
+
+#li-Easy{
+  margin-left:2em;
+}
+
+#points{
+  margin-top:-.7em;
+  position: absolute;
+  right: 7em;
+}
 /* austen teach */
 
 h1{
@@ -68,7 +84,7 @@ td #answers {
 
 li{
   display: inline;
-  padding: 2.5vw;
+
   font-family:'Montserrat', sans-serif;
   font-weight:500;
 }

@@ -146,15 +146,19 @@ a span.options {
   transition: 0.5s;
 }
 
+#register{
+  position:absolute;
+  right:0;
+  display:inline-block;
+}
+
+
 
 #div_top_hypers {
   background-color:#eee;
   display:inline;      
 }
 
-#ul_top_hypers li{
-    display: inline;
-}
 
 /* Dark Mode  */
 

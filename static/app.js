@@ -4,6 +4,7 @@ let count = 0
 let countTemp = 0
 let modifiers = {}
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //going through the text 
 
@@ -306,3 +307,5 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+  

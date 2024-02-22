@@ -3,12 +3,13 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const ejsMate = require('ejs-mate');
+const flash = require('connect-flash');
 const fs = require("fs")
 const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user')
-
+const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
 
 mongoose.connect('mongodb://127.0.0.1:27017/nova');
@@ -24,7 +25,7 @@ app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extendedx: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -52,6 +53,14 @@ passport.deserializeUser(User.deserializeUser()); // How to UNSTORE user
 
 const static_files_router = express.static('static')
 app.use( static_files_router ) 
+app.use(flash());
+
+/// REMEMBER when you get an incorrect password and something flashes up, basically this, is a MIDDLEWARE - LEAH
+app.use((req,res, next) =>{
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.use('/', userRoutes);
 
@@ -108,11 +117,10 @@ app.get('/nova', async (req, res)=>{
     console.log(Math.floor(sentence.length/10)+1)
     nums = nums.sort(function(a, b){return a-b})
     console.log(nums)
-    
     res.render("pages/home",  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
 })
 
-app.get('/tutorial', async (req,res)=>{
+app.get('/tutorial', isLoggedIn, async (req,res)=>{
     let lines = await process(text);//generates the whole 
     let index = Math.floor(Math.random() * lines.length);
     let sentence = lines[index].split(" ");//makes the sentence a list 

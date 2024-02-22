@@ -26,8 +26,19 @@ router.get('/login', (req,res)=>{
 })
 
 /// A LOT OF HAND WAVY PASSPORT METHODS 
-router.post('/login', passport.authenticate('local', {failureMessage: true, failureRedirect:'/404'}), (req, res)=>{
+router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), (req, res)=>{
+    req.flash('success', 'Welcome Back')
     res.redirect('/nova')
 })
+
+router.get('/logout', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success', 'Logged Out!');
+        res.redirect('/nova');
+    });
+}); 
 
 module.exports = router;

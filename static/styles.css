@@ -163,9 +163,15 @@ a span.options {
   display:inline;      
 }
 
+#btn-guide{
+  position: relative;
+  top: -65vh;
+  right: -74vw;
+
+}
 
 /* Dark Mode  */
-
+/* 
 body.darkmode{
   background-color:#292C2C;
   color:#fff;
@@ -203,7 +209,7 @@ background-color: #1E1F20;
 .navbar-custom.darkmode{
 background-color: #414345;
 color: white;
-}
+} */
 
 /* Animation */
 

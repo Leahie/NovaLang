@@ -57,6 +57,7 @@ app.use(flash());
 
 /// REMEMBER when you get an incorrect password and something flashes up, basically this, is a MIDDLEWARE - LEAH
 app.use((req,res, next) =>{
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();

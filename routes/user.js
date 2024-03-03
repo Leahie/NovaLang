@@ -7,13 +7,17 @@ const User = require('../models/user');
 router.get('/register', (req, res)=>{
     res.render('users/register')
 })
-router.post('/register', catchAsync(async (req, res)=>{
+router.post('/register', catchAsync(async (req, res, next)=>{
     try{
         const{email, username, password} = req.body;
         const user = new User({email, username});
         const registeredUser = await User.register(user, password);
-        console.log(registeredUser);
-        res.redirect('/nova');
+        req.login(registeredUser, err =>{
+            if(err) return next(err)
+            req.flash('Welcome '+req.user.username)
+            res.redirect('/nova');
+        })
+        
     }
     catch (e){
         console.log(e.message)
@@ -27,7 +31,7 @@ router.get('/login', (req,res)=>{
 
 /// A LOT OF HAND WAVY PASSPORT METHODS 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), (req, res)=>{
-    req.flash('success', 'Welcome Back')
+    req.flash('success', 'Welcome Back '+ req.user.username)
     res.redirect('/nova')
 })
 

@@ -169,9 +169,9 @@
 
         <table>
             <tr id="categorySwitcher">
-                <td><button onclick="filterCat1()">Authors</button></td>
-                <td><button onclick="filterCat2()">Pieces</button></td>
-                <td><button onclick="filterCat3()">Genres</button></td>
+                <td><button onclick="diff_easy()">Easy</button></td>
+                <td><button onclick="diff_medium()">Medium</button></td>
+                <td><button onclick="diff_hard()">Hard</button></td>
             </tr>
         </table>
 
@@ -182,36 +182,17 @@
             <br>
             <table class="categoryTable">
                 <tr>
-                    <td><div id="levelItem"><a href="/shakespeare">William Shakespeare</a></div></td>
-                    <td><div id="levelItem"><a href="/decervantes">Miguel de Cervantes</a></div></td>
-                    <td><div id="levelItem"><a href="/oda">Eiichiro Oda</a></div></td>
+                    <!-- <td><div id="levelItem"><a href="/nova?author=shakespeare">William Shakespeare</a></div></td>
+                    <td><div id="levelItem"><a href="/nova?author=decervantes">Miguel de Cervantes</a></div></td>
+                    <td><div id="levelItem"><a href="/nova?author=oda">Eiichiro Oda</a></div></td> -->
+                    <td><button onclick="author_shakespeare()">William Shakespeare</button></td>
+                    <td><button onclick="author_deCervantes()">Miguel de Cervantes</button></td>
+                    <td><button onclick="author_oda()">Eiichiro Oda</button></td>
                 </tr>
             </table>
         </div>
         
-        <div id="cat2_DIV">
-            <p id="sortByText"><i><u>Pieces</u></i></p>
-            <br>
-            <table class="categoryTable">
-                <tr>
-                    <td><div id="levelItem"><a href="/shakespeare/hamlet">Hamlet</a></div></td>
-                    <td><div id="levelItem"><a href="/decervantes/donquixote">Don Quixote</a></div></td>
-                    <td><div id="levelItem"><a href="/oda/onepiece">One Piece</a></div></td>
-                </tr>
-            </table>
-        </div>
-
-        <div id="cat3_DIV">
-            <p id="sortByText"><i><u>Genres</u></i></p>
-            <br>
-            <table class="categoryTable">
-                <tr>
-                    <td><div id="levelItem"><a href="/plays">Plays</a></div></td>
-                    <td><div id="levelItem"><a href="/fictionbook/adventure">Fiction Book (Adventure)</a></div></td>
-                    <td><div id="levelItem"><a href="/graphicnovelmanga">Graphic Novel / Manga</a></div></td>
-                </tr>
-            </table>
-        </div>
+        
 
     </div>
 
@@ -220,25 +201,5 @@
         let cat2_div = document.getElementById("cat2_DIV");
         let cat3_div = document.getElementById("cat3_DIV");
 
-        // visibility: hidden;
-        // visibility: visible;
-
-        function filterCat1(){
-            cat1_div.style="visibility: visible";
-            cat2_div.style="visibility: hidden";
-            cat3_div.style="visibility: hidden";
-        }
-
-        function filterCat2(){
-            cat1_div.style="visibility: hidden";
-            cat2_div.style="visibility: visible";
-            cat3_div.style="visibility: hidden";
-        }
-
-        function filterCat3(){
-            cat1_div.style="visibility: hidden";
-            cat2_div.style="visibility: hidden";
-            cat3_div.style="visibility: visible";
-        }
 
     </script>

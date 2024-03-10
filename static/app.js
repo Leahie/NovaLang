@@ -384,6 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // add the navigation button
     ele.appendChild(navigationButton());
+    ele.appendChild(textbox);
     
     // apend to the parent of the element
     document.getElementById("wrapper").appendChild(ele);
@@ -397,6 +398,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // move the next step
       if(index < steps.length - 1){
         highlight(steps[++index]);
+        textbox.textContent = array[index];
       }
     });
     
@@ -407,8 +409,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // move the prev step
       if(index > 0){
         highlight(steps[--index]);
+        textbox.textContent = array[index];
       }
     });
+
+    const endButton = document.createElement('button');
+
     
     // create a fragment and these two buttons to it
     const fragment = document.createDocumentFragment();
@@ -417,6 +423,10 @@ document.addEventListener("DOMContentLoaded", function () {
     
     return fragment;
   }
+
+  //text stuff
+  var array = ["choose level - easy, medium, or hard", "read text?", "choose the correct word"]
+  const textbox = document.createTextNode(array[0]);
   
   // helper function to scroll to element smoothly
   const scrollTo = (element) => {

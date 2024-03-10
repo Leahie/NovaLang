@@ -102,6 +102,21 @@ function randomInts(num, max){
     return [...nums]
 }
 
+async function query(data) {
+    let token 
+	const response = await fetch(
+		"https://api-inference.huggingface.co/models/striki-ai/william-shakespeare-poetry",
+		{
+			headers: { Authorization: `Bearer ${token}` },
+			method: "POST",
+			body: JSON.stringify(data),
+		}
+	);
+	const result = await response.json();
+	return result;
+}
+
+
 let text = './ml/Pride_and_Prejudice_by_Jane_Austen.txt'
 
 // COMMENT by LEAH actual functions for the pages 
@@ -118,6 +133,10 @@ app.get('/nova', async (req, res)=>{
     console.log(Math.floor(sentence.length/10)+1)
     nums = nums.sort(function(a, b){return a-b})
     console.log(nums)
+    query({"inputs": "Can you please let us know more details about your "}).then((response) => {
+        console.log(JSON.stringify(response));
+    });
+
     res.render("pages/home",  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
 })
 

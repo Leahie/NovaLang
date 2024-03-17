@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport')
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/user');
+const { isLoggedIn } = require("../middleware");
 
 router.get('/register', (req, res)=>{
     res.render('users/register')
@@ -25,7 +26,7 @@ router.post('/register', catchAsync(async (req, res, next)=>{
     }
 }))
 
-router.get('/login', (req,res)=>{
+router.get('/login',  (req,res)=>{
     res.render('users/login');
 })
 

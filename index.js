@@ -41,6 +41,8 @@ const sessionConfig = {
     }
 }
 
+const allAuthors = ["Shakespeare", "De Cervantes", "Oda"];
+
 app.use(session(sessionConfig))
 
 app.use(passport.initialize());
@@ -146,9 +148,10 @@ app.get('/nova', async (req, res)=>{
     
     let line = lines[index]
     console.log(line)
-    let response = await query({"inputs": `translate: ${line}`})
-    line = (response[0]['generated_text']);
+    /* let response = await query({"inputs": `translate: ${line}`})
+    line = (response[0]['generated_text']); 
     console.log(response)
+    */
     let sentence = line.split(" ");//makes the sentence a list 
     console.log( line, sentence)
     let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
@@ -162,7 +165,9 @@ app.get('/nova', async (req, res)=>{
             modifiers: ['magically', 'organically', 'going'], 
             generateResults_diff: app.locals.generateResults["diff"],
             generateResults_auth: app.locals.generateResults["auth"],
-            generateResults_prmt: app.locals.generateResults["prmt"],})
+            generateResults_prmt: app.locals.generateResults["prmt"],
+            cadaAuthor : allAuthors
+            })
         }
     else{
         res.render("pages/home",  {text: JSON.stringify(sentence), 
@@ -170,7 +175,9 @@ app.get('/nova', async (req, res)=>{
             modifiers: ['magically', 'organically', 'going'], 
             generateResults_diff: "",
             generateResults_auth: "",
-            generateResults_prmt: ""})
+            generateResults_prmt: "",
+            cadaAuthor : allAuthors
+            })
         }
     
 
@@ -190,7 +197,9 @@ app.get('/tutorial', isLoggedIn, async (req,res)=>{
     res.render('pages/tutorial',  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
 })
 //////////////////////////////////////// LOG IN AND SIGN OUT
-
+app.get('/profile', isLoggedIn, async (req,res)=>{
+    res.render('pages/profile', {username: req.user.username});
+})
 
 
 

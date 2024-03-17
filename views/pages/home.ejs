@@ -1,44 +1,58 @@
 <% layout('layouts/boilerplate') %>
 
+<style>
+#button_regenerate {
+  border-radius: 0.5vw;
+}
+
+</style>
+
+
 <div id="wrapper">
   <nav class="navbar navbar-expand-lg navbar-light bg-light" id="home-nav">
-
-      <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active" id = "li-Easy">
-        <a class="nav-link" href="/nova?status=easy">Easy</a>
-      </li>
-      <li class="nav-item" id = "li-Medium">
-        <a class="nav-link" href="/nova?status=medium">Medium</a>
-      </li>
-      <li class="nav-item" id="li-Hard">
-        <a class="nav-link" href="/nova?status=hard">Hard</a>
-      </li>
-    </ul>
-    <ul class = "navbar-nav my-2 my-lg-0 " id ="right-nav" > 
-      <li class="nav-item" id="points">
-        <p >Author: </p>
-      </li>
-      <li class="nav-item" id="points">
-        <p >Pieces: </p>
-      </li>
-      <li class="nav-item" id="points">
-        <p >Genre: </p>
-      </li>
-      <li class="nav-item" id="points">
-        <p >Level: </p>
-      </li>
-    </ul> -->
-    
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item" id="points">
-        <p >Difficulty: <strong><%= generateResults_diff %></strong></p>
+
+        <p> <label>Difficulty: <strong><%= generateResults_diff %> </strong><label>
+          <select onchange="handleDifficulty(this.value)">
+            <option value="" disabled selected>Difficulty?</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </p>
+
+
       </li>
+
+
       <li class="nav-item" id="points">
-        <p >Author: <strong><%= generateResults_auth %></strong></p>
+
+        <p> <label>Author: <strong><%= generateResults_auth %> </strong><label>
+          <select onchange="handleAuthor(this.value)">
+            <option value="" disabled selected>Author?</option>
+            <option value="shakespeare">Shakespeare</option>
+            <option value="decervantes">De Cervantes</option>
+            <option value="oda">Oda</option>
+          </select>
+        </p>
+
       </li>
+
+
       <li class="nav-item" id="points">
-        <p >Prompt: <strong><%= generateResults_prmt %></strong></p>
+        <p>Prompt: <strong><%= generateResults_prmt %></strong></p>
       </li>
+
+
+
+      <li class="nav-item" id="points">
+        <td><button id="button_regenerate" onclick="regenerate()">Re-generate!</button></td>
+      </li>
+
+
+
+
     </ul>
 
   </nav>
@@ -77,3 +91,84 @@
   </div>
   <button type="button" class="btn" id="btn-guide"><i class="bi bi-question-circle-fill"></i> Walkthrough</button>
 </div>
+
+
+
+<script>
+let difficulty = "<%= generateResults_diff %>"; //default to difficulty given
+let author = "<%= generateResults_auth %>"; //default to author given
+let promptText = "<%= generateResults_prmt %>"; //default to prompt given
+
+
+// DIFFICULTY FUNCTIONS
+function handleDifficulty(difficulty) {
+  if (difficulty === 'easy') {
+    diff_easy();
+  }
+  
+  else if (difficulty === 'medium') {
+    diff_med();
+  }
+  
+  else if (difficulty === 'hard') {
+    diff_hard();
+  }
+}
+
+function diff_easy() { difficulty = "easy"; }
+
+function diff_med() { difficulty = "medium"; }
+
+function diff_hard() { difficulty = "hard"; }
+
+
+// AUTHOR FUNCTIONS
+function handleAuthor(author) {
+  if (author === 'shakespeare') {
+    author_shakespeare();
+  }
+  
+  else if (author === 'decervantes') {
+    author_decervantes();
+  }
+  
+  else if (author === 'oda') {
+    author_oda();
+  }
+}
+
+function author_shakespeare() { author = "shakespeare"; }
+
+function author_decervantes() { author = "decervantes"; }
+
+function author_oda() { author = "oda"; }
+// .....etc
+
+
+
+// SUBMIT
+function regenerate()
+{
+    // REDIRECT
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/nova_redirect', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            window.location.href = '/nova';
+        }
+    };
+
+    var data = JSON.stringify({
+        "diff" : difficulty,
+        "auth" : author,
+        "prmt" : promptText
+    });
+
+    console.log(data);
+
+    xhr.send(data);
+}
+
+
+</script>

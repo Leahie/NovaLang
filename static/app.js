@@ -329,26 +329,33 @@ document.addEventListener("DOMContentLoaded", function () {
   text_div.classList.add('card');
    
   // helper function
-  const highlight = (id) => {
+  const highlight = (index) => {
+    prev = steps[index-1]
+    id = steps[index]
     // remove the existing highlighted elements
+    
+
     document.getElementById("lb-highlight")?.remove();
     document.getElementById("lb-popover")?.remove();
     
     // get the element with the ID
     const element = document.getElementById(id);
+    document.getElementById(prev).style.outline = "none";
+    
   
     // get the element dimension 
     const elementDimension = element.getBoundingClientRect();
   
     // highlight the element
-    highlightHelper(elementDimension);
+    highlightHelper(element, elementDimension);
   
     // add the popover with navigation button
     console.log(elementDimension)
     popover(elementDimension);
   }
   
-  const highlightHelper = (elementDimension) => {
+  const highlightHelper = (element, elementDimension) => {
+    element.style.outline = "thick solid #0000FF";  
     // calculate the css poisition 
     // where the highlighter will be placed
     let top = elementDimension.top + window.scrollY;
@@ -466,6 +473,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const button = document.querySelector('#btn-guide');
   button.addEventListener('click', e => {
-        highlight(steps[index]);
+        highlight(index);
     }
 );

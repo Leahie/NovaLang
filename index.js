@@ -11,6 +11,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
+const config = require('./config.json');
 
 mongoose.connect('mongodb://127.0.0.1:27017/nova');
 
@@ -103,11 +104,10 @@ function randomInts(num, max){
 }
 
 async function query(data) {
-    let token 
 	const response = await fetch(
-		"https://api-inference.huggingface.co/models/striki-ai/william-shakespeare-poetry",
+		"https://api-inference.huggingface.co/models/Gorilla115/t5-shakespearify-lite",
 		{
-			headers: { Authorization: `Bearer ${token}` },
+			headers: { Authorization: `Bearer ${config.token}` },
 			method: "POST",
 			body: JSON.stringify(data),
 		}
@@ -127,15 +127,18 @@ app.get('/', (req,res)=>{
 app.get('/nova', async (req, res)=>{
     let lines = await process(text);//generates the whole 
     let index = Math.floor(Math.random() * lines.length);
-    let sentence = lines[index].split(" ");//makes the sentence a list 
-    console.log( lines[index], sentence)
+    
+    let line = lines[index]
+    console.log(line)
+    let response = await query({"inputs": `translate: ${line}`})
+    line = (response[0]['generated_text']);
+    console.log(response)
+    let sentence = line.split(" ");//makes the sentence a list 
+    console.log( line, sentence)
     let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
     console.log(Math.floor(sentence.length/10)+1)
     nums = nums.sort(function(a, b){return a-b})
     console.log(nums)
-    query({"inputs": "Can you please let us know more details about your "}).then((response) => {
-        console.log(JSON.stringify(response));
-    });
 
     res.render("pages/home",  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
 })

@@ -312,7 +312,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const steps = ["home-nav", "choices", "text-corpus"];
   let index = 0;
-  
+   //text stuff
+  var array = ["Click here to choose your level and author - easy, medium, or hard", "Here we display the text, if you want to see all of it in full screen press space", "Choose the word that most matches the author"]
+  const text_div = document.createElement('div');
+  const textbox = document.createElement("p");
+  textbox.appendChild(document.createTextNode(array[0]));
+  textbox.style = `font-family: 'Montserrat', sans-serif;
+                  background: #fff;
+                  display:block;
+                  margin: auto;
+                  padding: 1em;
+                  
+                  `;
+  textbox.classList.add('card-text');
+  text_div.appendChild(textbox);
+  text_div.classList.add('card');
+   
   // helper function
   const highlight = (id) => {
     // remove the existing highlighted elements
@@ -329,6 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
     highlightHelper(elementDimension);
   
     // add the popover with navigation button
+    console.log(elementDimension)
     popover(elementDimension);
   }
   
@@ -373,18 +389,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // and add a style to it
     const ele = document.createElement("div");
     ele.id = "lb-popover";
+    ele.appendChild(text_div);
     ele.style = `
       position: absolute;
       top: ${bottom + 5}px;
       left: ${((left + right) / 2) - 50}px;
-      background: #fff;
-      width: 100px;
-      height: 100px;
+      width: 300px;
+      margin: auto;
+      
     `;
     
     // add the navigation button
     ele.appendChild(navigationButton());
-    ele.appendChild(textbox);
+    
     
     // apend to the parent of the element
     document.getElementById("wrapper").appendChild(ele);
@@ -401,7 +418,8 @@ document.addEventListener("DOMContentLoaded", function () {
         textbox.textContent = array[index];
       }
     });
-    
+
+
     // create the previous button with click event listener
     const prevButton = document.createElement('button');
     prevButton.textContent = "prev";
@@ -414,20 +432,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     const endButton = document.createElement('button');
+    endButton.textContent = "end";
+    endButton.addEventListener('click', function(){
+      // end
+      document.getElementById("lb-highlight")?.remove();
+      document.getElementById("lb-popover")?.remove();
+    });
 
-    
     // create a fragment and these two buttons to it
-    const fragment = document.createDocumentFragment();
+    const fragment = document.createElement("div");
+    prevButton.style='display:block'
+    nextButton.style='display:block'
+    endButton.style='display:block'
     fragment.appendChild(prevButton);
     fragment.appendChild(nextButton);
-    
+    fragment.appendChild(endButton);
+
+    fragment.style=`
+      background: #FFF;
+      text-align:center;
+    `;
     return fragment;
   }
 
-  //text stuff
-  var array = ["choose level - easy, medium, or hard", "read text?", "choose the correct word"]
-  const textbox = document.createTextNode(array[0]);
-  
+ 
   // helper function to scroll to element smoothly
   const scrollTo = (element) => {
     const eleTop = element.offsetTop;

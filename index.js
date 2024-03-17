@@ -11,7 +11,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
-const config = require('./config.json');
+const config = require('./config');
 
 mongoose.connect('mongodb://127.0.0.1:27017/nova');
 
@@ -50,11 +50,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()); // How to STORE user
 passport.deserializeUser(User.deserializeUser()); // How to UNSTORE user
 
-
-
 const static_files_router = express.static('static')
 app.use( static_files_router ) 
 app.use(flash());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /// REMEMBER when you get an incorrect password and something flashes up, basically this, is a MIDDLEWARE - LEAH
 app.use((req,res, next) =>{
@@ -107,6 +107,7 @@ async function query(data) {
 	const response = await fetch(
 		"https://api-inference.huggingface.co/models/Gorilla115/t5-shakespearify-lite",
 		{
+            
 			headers: { Authorization: `Bearer ${config.token}` },
 			method: "POST",
 			body: JSON.stringify(data),
@@ -124,6 +125,21 @@ app.get('/', (req,res)=>{
     res.render("pages/landing")
 })
 
+
+app.post('/nova_redirect', (req, res) => {
+    let diff_query = req.body.diff;
+    let auth_query = req.body.auth;
+    let prmt_query = req.body.prmt;
+
+    app.locals.generateResults = {
+        "diff" : diff_query,
+        "auth" : auth_query,
+        "prmt" : prmt_query
+    };
+
+    res.redirect('/nova');
+})
+
 app.get('/nova', async (req, res)=>{
     let lines = await process(text);//generates the whole 
     let index = Math.floor(Math.random() * lines.length);
@@ -139,8 +155,26 @@ app.get('/nova', async (req, res)=>{
     console.log(Math.floor(sentence.length/10)+1)
     nums = nums.sort(function(a, b){return a-b})
     console.log(nums)
+    
+    if( app.locals.generateResults != undefined){
+        res.render("pages/home",  {text: JSON.stringify(sentence), 
+            modifylist: JSON.stringify(nums), 
+            modifiers: ['magically', 'organically', 'going'], 
+            generateResults_diff: app.locals.generateResults["diff"],
+            generateResults_auth: app.locals.generateResults["auth"],
+            generateResults_prmt: app.locals.generateResults["prmt"],})
+        }
+    else{
+        res.render("pages/home",  {text: JSON.stringify(sentence), 
+            modifylist: JSON.stringify(nums), 
+            modifiers: ['magically', 'organically', 'going'], 
+            generateResults_diff: "",
+            generateResults_auth: "",
+            generateResults_prmt: ""})
+        }
+    
 
-    res.render("pages/home",  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
+    
 })
 
 app.get('/tutorial', isLoggedIn, async (req,res)=>{

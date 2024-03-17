@@ -127,22 +127,11 @@
             background-color: #ddf5f9;
         }
 
-
-
-
-        /* CATEGORIES */
-        #cat1_DIV {
-            visibility: visible;
+        #promptTextBox {
+            width: 45vw;
+            height: 2vw;
+            font-size: 1.5em;
         }
-
-        #cat2_DIV {
-            visibility: hidden;
-        }
-
-        #cat3_DIV {
-            visibility: hidden;
-        }
-
 
 
 
@@ -163,43 +152,165 @@
         
         <br><br>
 
-        <p id="sortByText">Sort By:</p>
+        <p id="sortByText">Difficulty:</p>
 
         <br>
 
         <table>
             <tr id="categorySwitcher">
-                <td><button onclick="diff_easy()">Easy</button></td>
-                <td><button onclick="diff_medium()">Medium</button></td>
-                <td><button onclick="diff_hard()">Hard</button></td>
+                <td><button id="diff_easy" onclick="diff_easy()">Easy</button></td>
+                <td><button id="diff_med" onclick="diff_med()">Medium</button></td>
+                <td><button id="diff_hard" onclick="diff_hard()">Hard</button></td>
             </tr>
         </table>
 
         <br><br><hr><br><br>
 
-        <div id="cat1_DIV">
+        <div>
             <p id="sortByText"><i><u>Authors</u></i></p>
             <br>
             <table class="categoryTable">
                 <tr>
-                    <!-- <td><div id="levelItem"><a href="/nova?author=shakespeare">William Shakespeare</a></div></td>
-                    <td><div id="levelItem"><a href="/nova?author=decervantes">Miguel de Cervantes</a></div></td>
-                    <td><div id="levelItem"><a href="/nova?author=oda">Eiichiro Oda</a></div></td> -->
-                    <td><button onclick="author_shakespeare()">William Shakespeare</button></td>
-                    <td><button onclick="author_deCervantes()">Miguel de Cervantes</button></td>
-                    <td><button onclick="author_oda()">Eiichiro Oda</button></td>
+                    <td><div id="levelItem"><a id="author_shakespeare" onclick="author_shakespeare()">William Shakespeare</a></div></td>
+                    <td><div id="levelItem"><a id="author_decervantes" onclick="author_decervantes()">Miguel de Cervantes</a></div></td>
+                    <td><div id="levelItem"><a id="author_oda" onclick="author_oda()">Eiichiro Oda</a></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <br><br><hr><br><br>
+
+        <div>
+            <p id="sortByText"><i><u>Prompt</u></i></p>
+            <br>
+            <table class="categoryTable">
+                <tr>
+                    <td><input id="promptTextBox" type="text" name="prompt"></td>
                 </tr>
             </table>
         </div>
         
-        
+        <br><br><hr><br><br>
 
+        <div>
+            <table class="categoryTable">
+                <tr>
+                    <td><div id="levelItem"><a style="border: 0.35vw solid blue; font-weight: bolder; font-size: 1.5em;" onclick="submit()">Generate!</a></div></td>                    
+                </tr>
+            </table>
+        </div>
+
+        
     </div>
 
     <script>
-        let cat1_div = document.getElementById("cat1_DIV");
-        let cat2_div = document.getElementById("cat2_DIV");
-        let cat3_div = document.getElementById("cat3_DIV");
+        let diff_easy_id = document.getElementById("diff_easy");
+        let diff_med_id = document.getElementById("diff_med");
+        let diff_hard_id = document.getElementById("diff_hard");
+
+        let author_shakespeare_id = document.getElementById("author_shakespeare");
+        let author_decervantes_id = document.getElementById("author_decervantes");
+        let author_oda_id = document.getElementById("author_oda");
+
+        let arr_authors = [author_shakespeare_id, author_decervantes_id, author_oda_id];
+
+        let promptTextBox_id = document.getElementById("promptTextBox");
+
+        let difficulty = "easy"; //default to easy
+        let author = "shakespeare"; //default to shakespeare
+        let promptText = ""; //default to blank
+
+
+        // CSS
+        let selected_css = "border: 0.35vw solid limegreen; font-weight: bolder; font-size: 1.25em;";
+        let unselected_css = "border: 0.35vw solid black; font-weight: normal; font-size: 1em;";
+
+        // DIFFICULTY FUNCTIONS
+        function diff_easy()
+        {
+            difficulty = "easy";
+            diff_easy_id.style = selected_css;
+            diff_med_id.style = unselected_css;
+            diff_hard_id.style = unselected_css;
+        }
+
+        function diff_med()
+        {
+            difficulty = "medium";
+            diff_easy_id.style = unselected_css;
+            diff_med_id.style = selected_css;
+            diff_hard_id.style = unselected_css;
+        }
+
+        function diff_hard(){
+            difficulty = "hard";
+            diff_easy_id.style = unselected_css;
+            diff_med_id.style = unselected_css;
+            diff_hard_id.style = selected_css;
+        }
+
+
+        // AUTHOR FUNCTIONS
+        function author_shakespeare()
+        {
+            author = "shakespeare";
+            for (let i = 0; i < arr_authors.length; i++){
+                arr_authors[i].style = unselected_css;
+            }
+            author_shakespeare_id.style = selected_css;
+        }
+
+        function author_decervantes()
+        {
+            author = "decervantes";
+            for (let i = 0; i < arr_authors.length; i++){
+                arr_authors[i].style = unselected_css;
+            }
+            author_decervantes_id.style = selected_css;
+        }
+
+        function author_oda()
+        {
+            author = "oda";
+            for (let i = 0; i < arr_authors.length; i++){
+                arr_authors[i].style = unselected_css;
+            }
+            author_oda_id.style = selected_css;
+        }
+        // .....etc
+
+
+        // SUBMIT
+        function submit()
+        {
+            // PROMPT
+            promptText = promptTextBox.value;
+            console.log(difficulty);
+            console.log(author);
+            console.log(promptText);
+
+
+            // REDIRECT
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/nova_redirect', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    window.location.href = '/nova';
+                }
+            };
+
+            var data = JSON.stringify({
+                "diff" : difficulty,
+                "auth" : author,
+                "prmt" : promptText
+            });
+
+            console.log(data);
+
+            xhr.send(data);
+
+        }
 
 
     </script>

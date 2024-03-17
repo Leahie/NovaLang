@@ -3,31 +3,43 @@
 <div id="wrapper">
   <nav class="navbar navbar-expand-lg navbar-light bg-light" id="home-nav">
 
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active" id = "li-Easy">
-          <a class="nav-link" href="/nova?status=easy">Easy</a>
-        </li>
-        <li class="nav-item" id = "li-Medium">
-          <a class="nav-link" href="/nova?status=medium">Medium</a>
-        </li>
-        <li class="nav-item" id="li-Hard">
-          <a class="nav-link" href="/nova?status=hard">Hard</a>
-        </li>
-      </ul>
-      <ul class = "navbar-nav my-2 my-lg-0 " id ="right-nav" > 
-        <li class="nav-item" id="points">
-          <p >Author: </p>
-        </li>
-        <li class="nav-item" id="points">
-          <p >Pieces: </p>
-        </li>
-        <li class="nav-item" id="points">
-          <p >Genre: </p>
-        </li>
-        <li class="nav-item" id="points">
-          <p >Level: </p>
-        </li>
-      </ul>
+      <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active" id = "li-Easy">
+        <a class="nav-link" href="/nova?status=easy">Easy</a>
+      </li>
+      <li class="nav-item" id = "li-Medium">
+        <a class="nav-link" href="/nova?status=medium">Medium</a>
+      </li>
+      <li class="nav-item" id="li-Hard">
+        <a class="nav-link" href="/nova?status=hard">Hard</a>
+      </li>
+    </ul>
+    <ul class = "navbar-nav my-2 my-lg-0 " id ="right-nav" > 
+      <li class="nav-item" id="points">
+        <p >Author: </p>
+      </li>
+      <li class="nav-item" id="points">
+        <p >Pieces: </p>
+      </li>
+      <li class="nav-item" id="points">
+        <p >Genre: </p>
+      </li>
+      <li class="nav-item" id="points">
+        <p >Level: </p>
+      </li>
+    </ul> -->
+    
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item" id="points">
+        <p >Difficulty: <strong><%= generateResults_diff %></strong></p>
+      </li>
+      <li class="nav-item" id="points">
+        <p >Author: <strong><%= generateResults_auth %></strong></p>
+      </li>
+      <li class="nav-item" id="points">
+        <p >Prompt: <strong><%= generateResults_prmt %></strong></p>
+      </li>
+    </ul>
 
   </nav>
 

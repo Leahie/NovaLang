@@ -1,33 +1,67 @@
 <% layout('layouts/boilerplate') %>
 
-<div id = "content">
-<div id="tryingtocenterthiszoomthinghelpp">
-    <table>
-      <tr class = "darkmode">
-        <td><div id = "text">
-          <!-- The displays of these are invisible, they are here for the javascript -->
-          <p id = "textBody"><%= text %> </p>
-          <p id = "modifyList"><%= modifylist %></p>
+<div id="wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" id="home-nav">
 
-          <!-- This is BLANK on purpose, javascript adds the text -->
-          <p id = "choices"></p>
-          <p id="text-corpus">
-            
-          </p>
-        </div></td>
-      </tr>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active" id = "li-Easy">
+          <a class="nav-link" href="/nova?status=easy">Easy</a>
+        </li>
+        <li class="nav-item" id = "li-Medium">
+          <a class="nav-link" href="/nova?status=medium">Medium</a>
+        </li>
+        <li class="nav-item" id="li-Hard">
+          <a class="nav-link" href="/nova?status=hard">Hard</a>
+        </li>
+      </ul>
+      <ul class = "navbar-nav my-2 my-lg-0 " id ="right-nav" > 
+        <li class="nav-item" id="points">
+          <p >Author: </p>
+        </li>
+        <li class="nav-item" id="points">
+          <p >Pieces: </p>
+        </li>
+        <li class="nav-item" id="points">
+          <p >Genre: </p>
+        </li>
+        <li class="nav-item" id="points">
+          <p >Level: </p>
+        </li>
+      </ul>
 
-      <tr>
-        <td><div id = "answers">
-          <ul class="no-bullets">
-            <li><a class = "option1 modifiers" href="#" onclick="next(0)"><%=modifiers[0]%></a></li>
-            <li><a class = "option2 modifiers" href="#"  onclick="next(1)"><%=modifiers[1]%></a></li>
-            <li><a class = "option3 modifiers" href="#"  onclick="next(2)"><%=modifiers[2]%></a></li>
-          </ul>
-        </div></td>
-      </tr>
-    </table>
+  </nav>
+
+  <div id = "content">
+  <div id="tryingtocenterthiszoomthinghelpp">
+      <table>
+        <tr class = "darkmode">
+          <td><div id = "text">
+            <!-- The displays of these are invisible, they are here for the javascript -->
+            <p id = "textBody"><%= text %> </p>
+            <p id = "modifyList"><%= modifylist %></p>
+
+            <!-- This is BLANK on purpose, javascript adds the text -->
+            <p id = "choices"></p>
+            <p id="text-corpus">
+              
+            </p>
+          </div></td>
+        </tr>
+
+        <tr>
+          <td><div id = "answers">
+            <ul class="no-bullets">
+              <li><a class = "option1 modifiers" href="#" onclick="next(0)"><%=modifiers[0]%></a></li>
+              <li><a class = "option2 modifiers" href="#"  onclick="next(1)"><%=modifiers[1]%></a></li>
+              <li><a class = "option3 modifiers" href="#"  onclick="next(2)"><%=modifiers[2]%></a></li>
+              
+            </ul>
+          </div></td>
+        </tr>
+      </table>
+
+    </div>
 
   </div>
-
+  <button type="button" class="btn" id="btn-guide"><i class="bi bi-question-circle-fill"></i> Walkthrough</button>
 </div>

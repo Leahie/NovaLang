@@ -1,13 +1,15 @@
+const bodyparser = require("body-parser")
 const express = require("express");
-const path = require('path');
-const mongoose = require('mongoose');
-const session = require('express-session');
 const ejsMate = require('ejs-mate');
 const flash = require('connect-flash');
 const fs = require("fs")
-const methodOverride = require('method-override');
-const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+const path = require('path');
+const passport = require('passport');
+const session = require('express-session');
+const speakeasy = require("speakeasy")
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
@@ -66,6 +68,9 @@ app.use((req,res, next) =>{
     next();
 })
 
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:true}));
+
 app.use('/', userRoutes);
 
 // COMMENT by LEAH important functions that we use 
@@ -106,19 +111,49 @@ function randomInts(num, max){
 }
 
 async function query(data) {
+    console.log(data)
 	const response = await fetch(
-		"https://api-inference.huggingface.co/models/Gorilla115/t5-shakespearify-lite",
+		"https://api-inference.huggingface.co/models/google/gemma-7b",
 		{
-            
-			headers: { Authorization: `Bearer ${config.token}` },
+			headers: { 
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${config.token}`
+             },
 			method: "POST",
 			body: JSON.stringify(data),
 		}
 	);
+    console.log(response)
 	const result = await response.json();
 	return result;
 }
 
+
+function process_response(txt){
+    return new Promise((resolve, reject)=>{
+        fs.readFile(txt, (err, inputD) => {
+            if (err)  reject(err);
+            let val = inputD.toString();
+            let lines = [];
+            let sentence = "";
+            for (let i = 0;i<val.length; i++){
+                if(val[i]=="\n")sentence+= " ";
+                else if(val[i]=='.' || val[i]==';' || val[i]=='!'){
+                    sentence+=val[i]
+                    if (sentence.length>=50 && !sentence.includes('_'))
+                        lines.push(sentence); 
+                    sentence = "";
+                }
+                else{
+                    sentence+=val[i]
+                } 
+            }
+            resolve(lines)
+        })
+    })
+    
+    
+}
 
 let text = './ml/Pride_and_Prejudice_by_Jane_Austen.txt'
 
@@ -160,6 +195,18 @@ app.get('/nova', async (req, res)=>{
     console.log(nums)
     
     if( app.locals.generateResults != undefined){
+        
+        let response  = await query({"inputs": `Can you please write a paragraph, complete sentences only without steps, in response to the prompt: "${app.locals.generateResults["prmt"]}" `})
+        console.log(response)
+        line = response[0]['generated_text']
+
+        let sentence = line.split(" ");//makes the sentence a list 
+        console.log( line, sentence)
+        let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
+        console.log(Math.floor(sentence.length/10)+1)
+        nums = nums.sort(function(a, b){return a-b})
+        console.log(sentence)
+        
         res.render("pages/home",  {text: JSON.stringify(sentence), 
             modifylist: JSON.stringify(nums), 
             modifiers: ['magically', 'organically', 'going'], 

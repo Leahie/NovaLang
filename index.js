@@ -200,10 +200,11 @@ app.get('/nova', async (req, res)=>{
     console.log(nums)
     
     if( app.locals.generateResults != undefined){
-        
-        let response  = await query({"inputs": `Can you please write a paragraph, complete sentences only without steps, in response to the prompt: "${app.locals.generateResults["prmt"]}" `})
+        let temp = "immediately after,'now start writing' you will write your answer. You are an example in a textbook providing readers with a example to the prompt, answer with complete sentences only. WITHOUT steps and WITHOUT the quotation symbols: please"
+
+        let response  = await query({"inputs": `${temp}${app.locals.generateResults["prmt"]}, now start writing:`})
         console.log(response)
-        line = response[0]['generated_text']
+        line = (response[0]['generated_text']).slice(temp.length + app.locals.generateResults["prmt"].length)
 
         let sentence = line.split(" ");//makes the sentence a list 
         console.log( line, sentence)
@@ -234,6 +235,10 @@ app.get('/nova', async (req, res)=>{
     
 
     
+})
+
+app.get('/submitted', async(req, res)=>{
+    res.render("pages/submit")
 })
 
 app.get('/tutorial', isLoggedIn, async (req,res)=>{

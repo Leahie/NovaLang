@@ -11,8 +11,10 @@ let modifiers_gen = {}
 
 FirstTime = true
 let textBody =  document.querySelector('#textBody').innerHTML // This is how we get the index
-textBody = textBody.replace(/'/g, '"') //replacing all ' with "
-textBody = JSON.parse(textBody)
+
+textBody1 = textBody.replace(/\\n/g, "").replace(/\\/g, "")//replacing all ' with "
+
+textBody = JSON.parse(textBody1)
 
 let modifyList = document.querySelector('#modifyList').innerHTML 
 modifyList = modifyList.replace(/'/g, '"') //replacing all ' with "
@@ -76,52 +78,65 @@ e.preventDefault();
 
 // Pressing one of the lis 
 function next(option, countTrue=true, add=1, curr=count){
-if(countTrue){
-    if(countTemp < modifyList.length){
-      if(countTemp==count){
-        let currOpt = modifiers_gen[count]
-        //let currOpt = document.querySelectorAll(".modifiers")
-        console.log(option)
-        console.log(currOpt[option])
-        modifiers[count] = currOpt[option]
+  console.log(`${count} ${modifyList.length}`);
+  if(count+1 == modifyList.length){
+    console.log("GOT HERE")
+    const newButton = document.createElement('button');
+    newButton.className = "btn btn-primary btn-lg"
+    newButton.textContent = 'Check Your Accuracy';
+    let myDiv = document.querySelector("#submission")
+    newButton.onclick = function () {
+      location.href = "submitted";
+  };
+    myDiv.appendChild(newButton);
+  }
+  if(countTrue){
+      if(countTemp < modifyList.length){
+        if(countTemp==count){
+          let currOpt = modifiers_gen[count]
+          //let currOpt = document.querySelectorAll(".modifiers")
+          console.log(option)
+          console.log(currOpt[option])
+          modifiers[count] = currOpt[option]
 
-        let choices = document.querySelector("#choices")
-        choices.innerText = JSON.stringify(modifiers)
-        console.log(modifiers)
+          let choices = document.querySelector("#choices")
+          choices.innerText = JSON.stringify(modifiers)
+          console.log(modifiers)
 
-        count+=1
-        countTemp = count
-        selected = textBody[modifyList[count]]
-        console.log(modifiers)
-        generateText(count)
+          count+=1
+          countTemp = count
+          selected = textBody[modifyList[count]]
+          console.log(modifiers)
+          generateText(count)
+        }
+        else{
+          let currOpt = modifiers_gen[countTemp]
+          //let currOpt = document.querySelectorAll(".modifiers")
+          console.log(option)
+          console.log(currOpt[option])
+          modifiers[countTemp] = currOpt[option]
+
+          let choices = document.querySelector("#choices")
+          choices.innerText = JSON.stringify(modifiers)
+          console.log(modifiers)
+
+          countTemp += 1
+          selected = textBody[modifyList[countTemp]]
+          console.log(modifiers)
+          generateText(countTemp)
+        }
+
       }
-      else{
-        let currOpt = modifiers_gen[countTemp]
-        //let currOpt = document.querySelectorAll(".modifiers")
-        console.log(option)
-        console.log(currOpt[option])
-        modifiers[countTemp] = currOpt[option]
+  }
 
-        let choices = document.querySelector("#choices")
-        choices.innerText = JSON.stringify(modifiers)
-        console.log(modifiers)
-
-        countTemp += 1
-        selected = textBody[modifyList[countTemp]]
-        console.log(modifiers)
-        generateText(countTemp)
+  else{
+      if(curr+add <= count && curr+add >=0){
+      countTemp+=add
+      selected = textBody[modifyList[countTemp]];
+      generateText(countTemp);      
       }
-
-    }
-}
-else{
-    if(curr+add <= count && curr+add >=0){
-    countTemp+=add
-    selected = textBody[modifyList[countTemp]]
-    generateText(countTemp)
-    
-    }
-}
+  }
+  
 }
 
 function generateText(curr){
@@ -134,7 +149,7 @@ function generateText(curr){
       }
       else if(modifyList.includes(i)){
         index = modifyList.indexOf(i);
-        if (index<count){
+        if (index<count){ 
           temp = temp + " " + `<span  style='color:blue;'>${modifiers[index]}</span>` ;
         }
       }
@@ -158,6 +173,7 @@ function generateText(curr){
 function generateSim(word){
   return [word, word, word]
 }
+
 
 
 

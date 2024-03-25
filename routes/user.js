@@ -4,6 +4,7 @@ const passport = require('passport')
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/user');
 const { isLoggedIn } = require("../middleware");
+const UserController = require('../controllers/user_controller.js');
 
 router.get('/register', (req, res)=>{
     res.render('users/register')
@@ -11,8 +12,10 @@ router.get('/register', (req, res)=>{
 router.post('/register', catchAsync(async (req, res, next)=>{
     try{
         const{email, username, password} = req.body;
-        const user = new User({email, username});
-        const registeredUser = await User.register(user, password);
+        
+        await UserController.signup(req,res);
+         // This is just Passport
+
         req.login(registeredUser, err =>{
             if(err) return next(err)
             req.flash('Welcome '+req.user.username)
@@ -31,7 +34,8 @@ router.get('/login',  (req,res)=>{
 })
 
 /// A LOT OF HAND WAVY PASSPORT METHODS 
-router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), (req, res)=>{
+router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), async(req, res)=>{
+    //await UserController.login(req,res); // STILL WORKING ON THIS
     req.flash('success', 'Welcome Back '+ req.user.username)
     res.redirect('/nova')
 })

@@ -167,14 +167,19 @@ app.post('/nova_redirect', (req, res) => {
     let diff_query = req.body.diff;
     let auth_query = req.body.auth;
     let prmt_query = req.body.prmt;
-
-    app.locals.generateResults = {
-        "diff" : diff_query,
-        "auth" : auth_query,
-        "prmt" : prmt_query
-    };
-
-    res.redirect('/nova');
+    if (prmt_query!=""){
+        app.locals.generateResults = {
+            "diff" : diff_query,
+            "auth" : auth_query,
+            "prmt" : prmt_query
+        };
+        res.redirect('/nova');
+    }
+    else{
+        req.flash('success', 'You Need A Prompt!')
+        res.redirect('/nova');
+    }
+    
 })
 
 app.get('/nova', async (req, res)=>{

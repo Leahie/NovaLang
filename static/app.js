@@ -3,6 +3,7 @@
 let count = 0
 let countTemp = 0
 let modifiers = {}
+let modifiers_gen = {}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,13 @@ let modifyList = document.querySelector('#modifyList').innerHTML
 modifyList = modifyList.replace(/'/g, '"') //replacing all ' with "
 modifyList = JSON.parse(modifyList)
 
+for (let i = 0; i < modifyList.length; i++) {
+  temp = textBody[modifyList[i]]
+  textBody[modifyList[i]] = "_".repeat(textBody[modifyList[i]].length)
+  console.log(textBody[i])
+  modifiers_gen[i] = generateSim(temp)
+}
+
 console.log( textBody, modifyList)
 
 let selected = textBody[modifyList[count]]
@@ -26,17 +34,20 @@ if(FirstTime == true){
     let textCorpus = document.querySelector("#text-corpus")
     let temp = "";
     for( let i = 0; i < textBody.length; i++  ){
-    if(i==modifyList[count]){
-        temp = temp + " " + `<span id='${count}' style='color:red;'>${textBody[i]}</span>`
-    }
-    else{
-        temp = temp + " " + textBody[i]
-    }
+      if(i==modifyList[count]){
+          temp = temp + " " + `<span id='${count}' style='color:red;'>${textBody[i]}</span>`
+      }
+      else{
+          temp = temp + " " + textBody[i]
+      }
     }
 
     textCorpus.innerHTML = temp
+    let currOpt = document.querySelectorAll(".modifiers")
+    for(let i=0; i < currOpt.length; i++ ){
+      currOpt[i].innerHTML = modifiers_gen[count][i]
+    }
 
-    
     FirstTime = false
 }
 
@@ -66,11 +77,14 @@ e.preventDefault();
 // Pressing one of the lis 
 function next(option, countTrue=true, add=1, curr=count){
 if(countTrue){
-    if(count+1 < modifyList.length){
-        let currOpt = document.querySelectorAll(".modifiers")
+    if(countTemp < modifyList.length){
+      if(countTemp==count){
+        let currOpt = modifiers_gen[count]
+        //let currOpt = document.querySelectorAll(".modifiers")
         console.log(option)
         console.log(currOpt[option])
-        modifiers[count] = currOpt[option].innerHTML
+        modifiers[count] = currOpt[option]
+
         let choices = document.querySelector("#choices")
         choices.innerText = JSON.stringify(modifiers)
         console.log(modifiers)
@@ -80,6 +94,24 @@ if(countTrue){
         selected = textBody[modifyList[count]]
         console.log(modifiers)
         generateText(count)
+      }
+      else{
+        let currOpt = modifiers_gen[countTemp]
+        //let currOpt = document.querySelectorAll(".modifiers")
+        console.log(option)
+        console.log(currOpt[option])
+        modifiers[countTemp] = currOpt[option]
+
+        let choices = document.querySelector("#choices")
+        choices.innerText = JSON.stringify(modifiers)
+        console.log(modifiers)
+
+        countTemp += 1
+        selected = textBody[modifyList[countTemp]]
+        console.log(modifiers)
+        generateText(countTemp)
+      }
+
     }
 }
 else{
@@ -91,25 +123,43 @@ else{
     }
 }
 }
+
 function generateText(curr){
-let textCorpus = document.querySelector("#text-corpus")
-let temp = "";
-for( let i = 0; i < textBody.length; i++  ){
-    if(i==modifyList[curr]){
-    temp = temp + " " + `<span id='${curr}' style='color:red;'>${textBody[i]}</span>`
-    }
-    else{
-    temp = temp + " " + textBody[i]
-    }
-}
+  let textCorpus = document.querySelector("#text-corpus")
+  let temp = "";
+  for( let i = 0; i < textBody.length; i++  ){
+      if(i==modifyList[curr]){
+        console.log(textBody[i])
+        temp = temp + " " + `<span id='${curr}' style='color:red;'>${textBody[i]}</span>`
+      }
+      else if(modifyList.includes(i)){
+        index = modifyList.indexOf(i);
+        if (index<count){
+          temp = temp + " " + `<span  style='color:blue;'>${modifiers[index]}</span>` ;
+        }
+      }
+      
+      else{
+        temp = temp + " " + textBody[i];
+      }
+  }
+  
+  textCorpus.innerHTML = temp
 
-textCorpus.innerHTML = temp
-
-document.getElementById(curr).scrollIntoView()({
+  let NextOpt = document.querySelectorAll(".modifiers")
+  for(let i=0; i < NextOpt.length; i++ ){
+    NextOpt[i].innerHTML = modifiers_gen[curr][i]
+  }
+  document.getElementById(curr).scrollIntoView()({
     behavior: 'smooth'
 });
-
 }
+
+function generateSim(word){
+  return [word, word, word]
+}
+
+
 
 let zoom = true;
 let container = document.getElementById("text");

@@ -13,7 +13,6 @@ const speakeasy = require("speakeasy")
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
-require('dotenv').config()
 //const config = require('./config');
 
 mongoose.connect('mongodb://127.0.0.1:27017/nova');
@@ -73,6 +72,8 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.use('/', userRoutes);
+const test = require('dotenv').config()
+console.log(test.parsed.TOKEN)
 
 // COMMENT by LEAH important functions that we use 
 
@@ -112,13 +113,12 @@ function randomInts(num, max){
 }
 
 async function query(data) {
-    console.log(data)
 	const response = await fetch(
 		"https://api-inference.huggingface.co/models/google/gemma-7b",
 		{
 			headers: { 
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${process.env.TOKEN}`
+                Authorization: `Bearer ${test.parsed.TOKEN}`
              },
 			method: "POST",
 			body: JSON.stringify(data),

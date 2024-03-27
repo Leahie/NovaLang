@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
-const config = require('../config');
+
+//const config = require('../config');
+require('dotenv').config()
 
 const UserSchema = new Schema({
     email:{
@@ -21,7 +23,7 @@ UserSchema.methods.generateVerificationToken = function () {
     const user = this;
     const verificationToken = jwt.sign(
         { ID: user._id },
-        config.USER_VERIFICATION_TOKEN_SECRET,
+        process.env.USER_VERIFICATION_TOKEN_SECRET,
         { expiresIn: "7d" }
     );
     return verificationToken;

@@ -1,4 +1,5 @@
-const config = require('../config');
+require('dotenv').config()
+//const config = require('../config');
 const nodemailer = require('nodemailer');
 
 const User = require('../models/user.js');
@@ -6,8 +7,8 @@ const User = require('../models/user.js');
 const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
-          user: config.EMAIL_USERNAME,
-          pass: config.EMAIL_PASSWORD,
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD,
       },
 });
 

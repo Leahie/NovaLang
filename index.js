@@ -13,7 +13,8 @@ const speakeasy = require("speakeasy")
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
-const config = require('./config');
+require('dotenv').config()
+//const config = require('./config');
 
 mongoose.connect('mongodb://127.0.0.1:27017/nova');
 
@@ -117,7 +118,7 @@ async function query(data) {
 		{
 			headers: { 
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${config.token}`
+                Authorization: `Bearer ${process.env.TOKEN}`
              },
 			method: "POST",
 			body: JSON.stringify(data),

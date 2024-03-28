@@ -254,6 +254,15 @@ app.get('/tutorial', isLoggedIn, async (req,res)=>{
     
     res.render('pages/tutorial',  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
 })
+
+app.get('/key', async(req, res)=>{
+    res.setHeader('Content-Type', 'application/json');
+    key = {
+        "token" : test.parsed.TOKEN,
+        "ninja_key": test.parsed.NINJA_KEY
+    }
+    res.send(JSON.stringify(key))
+})
 //////////////////////////////////////// LOG IN AND SIGN OUT
 app.get('/profile', isLoggedIn, async (req,res)=>{
     res.render('pages/profile', {username: req.user.username});

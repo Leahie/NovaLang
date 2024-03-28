@@ -1,6 +1,31 @@
 /* austen edit test */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;1,300&display=swap');
 
+
+
+
+
+/* Home Page*/
+#home-nav{
+  border-radius: 2em;
+  margin: 0em 10em;
+  padding: 0em;
+}
+
+#li-Easy{
+  margin-left:2em;
+}
+
+#points{
+  margin-top:1em;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+#right-nav{
+  position:absolute;
+  right:0;
+}
 /* austen teach */
 
 h1{
@@ -68,7 +93,7 @@ td #answers {
 
 li{
   display: inline;
-  padding: 2.5vw;
+
   font-family:'Montserrat', sans-serif;
   font-weight:500;
 }
@@ -125,18 +150,28 @@ a span.options {
   transition: 0.5s;
 }
 
+#register{
+  position:absolute;
+  right:0;
+  display:inline-block;
+}
+
+
 
 #div_top_hypers {
   background-color:#eee;
   display:inline;      
 }
 
-#ul_top_hypers li{
-    display: inline;
+#btn-guide{
+  position: relative;
+  top: -65vh;
+  right: -74vw;
+
 }
 
 /* Dark Mode  */
-
+/* 
 body.darkmode{
   background-color:#292C2C;
   color:#fff;
@@ -174,7 +209,7 @@ background-color: #1E1F20;
 .navbar-custom.darkmode{
 background-color: #414345;
 color: white;
-}
+} */
 
 /* Animation */
 

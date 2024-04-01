@@ -5,8 +5,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 //const config = require('../config');
 //require('dotenv').config()
-const test = require('dotenv').config()
-console.log(test.parsed.TOKEN)
+require('dotenv').config()
+console.log(process.env.TOKEN)
 
 const UserSchema = new Schema({
     email:{
@@ -25,7 +25,7 @@ UserSchema.methods.generateVerificationToken = function () {
     const user = this;
     const verificationToken = jwt.sign(
         { ID: user._id },
-        test.parsed.USER_VERIFICATION_TOKEN_SECRET,
+        process.env.USER_VERIFICATION_TOKEN_SECRET,
         { expiresIn: "7d" }
     );
     return verificationToken;

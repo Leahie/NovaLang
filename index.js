@@ -13,12 +13,22 @@ const speakeasy = require("speakeasy")
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
+require('dotenv').config()
+
+console.log(process.env.TOKEN)
+const uri = process.env.MONGODB_CONNECTION_STRING;
+
 //const config = require('./config');
 
-mongoose.connect('mongodb://127.0.0.1:27017/nova');
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
+/* 
 db.on("error", console.error.bind(console, "connection error:"));
+*/
 db.once("open", () => {
     console.log("Database connected");
 });
@@ -72,12 +82,11 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.use('/', userRoutes);
-const test = require('dotenv').config()
-console.log(test.parsed.TOKEN)
+
 
 // COMMENT by LEAH important functions that we use 
 
-function process(txt){
+function processing(txt){
     return new Promise((resolve, reject)=>{
         fs.readFile(txt, (err, inputD) => {
             if (err)  reject(err);
@@ -118,7 +127,7 @@ async function query(data) {
 		{
 			headers: { 
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${test.parsed.TOKEN}`
+                Authorization: `Bearer ${process.env.TOKEN}`
              },
 			method: "POST",
 			body: JSON.stringify(data),
@@ -184,7 +193,7 @@ app.post('/nova_redirect', (req, res) => {
 })
 
 app.get('/nova', async (req, res)=>{
-    let lines = await process(text);//generates the whole 
+    let lines = await processing(text);//generates the whole 
     let index = Math.floor(Math.random() * lines.length);
     
     let line = lines[index]
@@ -234,8 +243,6 @@ app.get('/nova', async (req, res)=>{
             })
         }
     
-
-    
 })
 
 app.get('/submitted', async(req, res)=>{
@@ -243,7 +250,7 @@ app.get('/submitted', async(req, res)=>{
 })
 
 app.get('/tutorial', isLoggedIn, async (req,res)=>{
-    let lines = await process(text);//generates the whole 
+    let lines = await processing(text);//generates the whole 
     let index = Math.floor(Math.random() * lines.length);
     let sentence = lines[index].split(" ");//makes the sentence a list 
     console.log( lines[index], sentence)
@@ -258,8 +265,8 @@ app.get('/tutorial', isLoggedIn, async (req,res)=>{
 app.get('/key', async(req, res)=>{
     res.setHeader('Content-Type', 'application/json');
     key = {
-        "token" : test.parsed.TOKEN,
-        "ninja_key": test.parsed.NINJA_KEY
+        "token" : process.env.TOKEN,
+        "ninja_key": process.env.NINJA_KEY
     }
     res.send(JSON.stringify(key))
 })

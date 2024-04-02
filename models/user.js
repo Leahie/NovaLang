@@ -6,7 +6,6 @@ const passportLocalMongoose = require('passport-local-mongoose');
 //const config = require('../config');
 //require('dotenv').config()
 require('dotenv').config()
-console.log(process.env.TOKEN)
 
 const UserSchema = new Schema({
     email:{

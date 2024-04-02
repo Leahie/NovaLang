@@ -13,6 +13,7 @@ const speakeasy = require("speakeasy")
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
+const gameRoutes = require('./routes/game')
 require('dotenv').config()
 
 console.log(process.env.TOKEN)
@@ -53,7 +54,6 @@ const sessionConfig = {
     }
 }
 
-const allAuthors = ["Shakespeare", "De Cervantes", "Oda"];
 
 app.use(session(sessionConfig))
 
@@ -82,167 +82,14 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.use('/', userRoutes);
+app.use('/', gameRoutes);
 
 
 // COMMENT by LEAH important functions that we use 
 
-function processing(txt){
-    return new Promise((resolve, reject)=>{
-        fs.readFile(txt, (err, inputD) => {
-            if (err)  reject(err);
-            let val = inputD.toString();
-            let lines = [];
-            let sentence = "";
-            for (let i = 0;i<val.length; i++){
-                if(val[i]=="\n")sentence+= " ";
-                else if(val[i]=='.' || val[i]==';' || val[i]=='!'){
-                    sentence+=val[i]
-                    if (sentence.length>=50 && !sentence.includes('_'))
-                        lines.push(sentence); 
-                    sentence = "";
-                }
-                else{
-                    sentence+=val[i]
-                } 
-            }
-            resolve(lines)
-        })
-    })
-    
-    
-}
-
-function randomInts(num, max){
-    let nums = new Set();
-    while(nums.size<num){
-        var candidateInt = Math.floor(Math.random() * (max)) + 1
-        nums.add(candidateInt)
-    }
-    return [...nums]
-}
-
-async function query(data) {
-	const response = await fetch(
-		"https://api-inference.huggingface.co/models/google/gemma-7b",
-		{
-			headers: { 
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${process.env.TOKEN}`
-             },
-			method: "POST",
-			body: JSON.stringify(data),
-		}
-	);
-    console.log(response)
-	const result = await response.json();
-	return result;
-}
-
-
-function process_response(txt){
-    return new Promise((resolve, reject)=>{
-        fs.readFile(txt, (err, inputD) => {
-            if (err)  reject(err);
-            let val = inputD.toString();
-            let lines = [];
-            let sentence = "";
-            for (let i = 0;i<val.length; i++){
-                if(val[i]=="\n")sentence+= " ";
-                else if(val[i]=='.' || val[i]==';' || val[i]=='!'){
-                    sentence+=val[i]
-                    if (sentence.length>=50 && !sentence.includes('_'))
-                        lines.push(sentence); 
-                    sentence = "";
-                }
-                else{
-                    sentence+=val[i]
-                } 
-            }
-            resolve(lines)
-        })
-    })
-    
-    
-}
-
-let text = './ml/Pride_and_Prejudice_by_Jane_Austen.txt'
-
 // COMMENT by LEAH actual functions for the pages 
 app.get('/', (req,res)=>{
     res.render("pages/landing")
-})
-
-
-app.post('/nova_redirect', (req, res) => {
-    let diff_query = req.body.diff;
-    let auth_query = req.body.auth;
-    let prmt_query = req.body.prmt;
-    if (prmt_query!=""){
-        app.locals.generateResults = {
-            "diff" : diff_query,
-            "auth" : auth_query,
-            "prmt" : prmt_query
-        };
-        res.redirect('/nova');
-    }
-    else{
-        req.flash('success', 'You Need A Prompt!')
-        res.redirect('/nova');
-    }
-    
-})
-
-app.get('/nova', async (req, res)=>{
-    let lines = await processing(text);//generates the whole 
-    let index = Math.floor(Math.random() * lines.length);
-    
-    let line = lines[index]
-    console.log(line)
-    /* let response = await query({"inputs": `translate: ${line}`})
-    line = (response[0]['generated_text']); 
-    console.log(response)
-    */
-    let sentence = line.split(" ");//makes the sentence a list 
-    console.log( line, sentence)
-    let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
-    console.log(Math.floor(sentence.length/10)+1)
-    nums = nums.sort(function(a, b){return a-b})
-    console.log(nums)
-    
-    if( app.locals.generateResults != undefined){
-        let temp = "immediately after,'now start writing' you will write your answer. You are an example in a textbook providing readers with a example to the prompt, answer with complete sentences only. WITHOUT steps and WITHOUT the quotation symbols: please"
-
-        let response  = await query({"inputs": `${temp}${app.locals.generateResults["prmt"]}, now start writing:`})
-        console.log(response)
-        line = (response[0]['generated_text']).slice(temp.length + app.locals.generateResults["prmt"].length)
-
-        let sentence = line.split(" ");//makes the sentence a list 
-        console.log( line, sentence)
-        let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
-        console.log(Math.floor(sentence.length/10)+1)
-        nums = nums.sort(function(a, b){return a-b})
-        console.log(sentence)
-        
-        res.render("pages/home",  {text: JSON.stringify(sentence), 
-            modifylist: JSON.stringify(nums), 
-            modifiers: ['magically', 'organically', 'going'], 
-            generateResults_diff: app.locals.generateResults["diff"],
-            generateResults_auth: app.locals.generateResults["auth"],
-            generateResults_prmt: app.locals.generateResults["prmt"],
-            cadaAuthor : allAuthors
-            })
-        }
-    else{
-        res.render("pages/home",  {text: JSON.stringify(sentence), 
-            modifylist: JSON.stringify(nums), 
-            modifiers: ['magically', 'organically', 'going'], 
-            generateResults_diff: "",
-            generateResults_auth: "",
-            generateResults_prmt: "",
-            cadaAuthor : allAuthors
-            })
-        }
-    
 })
 
 app.get('/submitted', async(req, res)=>{
@@ -250,17 +97,8 @@ app.get('/submitted', async(req, res)=>{
 })
 
 app.get('/tutorial', isLoggedIn, async (req,res)=>{
-    let lines = await processing(text);//generates the whole 
-    let index = Math.floor(Math.random() * lines.length);
-    let sentence = lines[index].split(" ");//makes the sentence a list 
-    console.log( lines[index], sentence)
-    let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
-    console.log(Math.floor(sentence.length/10)+1)
-    nums = nums.sort(function(a, b){return a-b})
-    console.log(nums)
-    
-    res.render('pages/tutorial',  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
-})
+    res.send("Hidden Page!")
+  })
 
 app.get('/key', async(req, res)=>{
     res.setHeader('Content-Type', 'application/json');

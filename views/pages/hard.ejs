@@ -6,7 +6,7 @@
 }
 
 </style>
-
+<link rel="stylesheet" href="hard.css">
 
 <div id="wrapper">
   <nav class="navbar navbar-expand-lg navbar-light bg-light" id="home-nav">
@@ -60,8 +60,7 @@
   <div id = "content">
   <div id="tryingtocenterthiszoomthinghelpp">
       <table>
-        <tr class = "darkmode">
-          <td><div id = "text">
+          <div id = "text">
             <!-- The displays of these are invisible, they are here for the javascript -->
             <p id = "textBody"><%= text %> </p>
             <p id = "modifyList"><%= modifylist %></p>
@@ -71,22 +70,17 @@
             <p id="text-corpus">
               
             </p>
-          </div></td>
-        </tr>
+          </div>
+          <div>
+            <form action="">
+                <input type="text" id="answer" name="answer"><br>
+              </form>
+          </div>
+          
         
 
 
-        <tr>
-          <td><div id = "answers">
-            <ul class="no-bullets">
-              <li><a class = "option1 modifiers" href="#" onclick="next(0)"><%=modifiers[0]%></a></li>
-              <li><a class = "option2 modifiers" href="#"  onclick="next(1)"><%=modifiers[1]%></a></li>
-              <li><a class = "option3 modifiers" href="#"  onclick="next(2)"><%=modifiers[2]%></a></li>
-              
-            </ul>
-          </div></td>
-        </tr>
-        
+      
       </table>
 
     </div>
@@ -97,7 +91,7 @@
   <button type="button" class="btn" id="btn-guide"><i class="bi bi-question-circle-fill"></i> Walkthrough</button>
 </div>
 
-<script src="home.js"></script>
+<script src="hard.js"></script>
 
 <script>
 

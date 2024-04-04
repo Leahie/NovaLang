@@ -153,16 +153,21 @@ router.get('/easy', async (req, res)=>{
         }
 });
 
+const arrayRange = (start, stop, step=1) =>
+    Array.from(
+    { length: (stop - start) / step + 1 },
+    (value, index) => start + index * step
+    );
+
 router.get('/hard', async (req, res) =>{
-     let lines = await processing(text);//generates the whole 
+    let lines = await processing(text);//generates the whole 
     let index = Math.floor(Math.random() * lines.length);
     let line = lines[index]
     console.log(line)
     let sentence = line.split(" ");//makes the sentence a list 
     console.log( line, sentence)
-    let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
+    let nums = arrayRange(1, sentence.length)
     console.log(Math.floor(sentence.length/10)+1)
-    nums = nums.sort(function(a, b){return a-b})
 
     if( req.app.locals.generateResults != undefined){
         let temp = "immediately after,'now start writing' you will write your answer. You are an example in a textbook providing readers with a example to the prompt, answer with complete sentences only. WITHOUT steps and WITHOUT the quotation symbols: please"

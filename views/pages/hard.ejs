@@ -4,7 +4,6 @@
 #button_regenerate {
   border-radius: 0.5vw;
 }
-
 </style>
 <link rel="stylesheet" href="hard.css">
 
@@ -58,8 +57,7 @@
   </nav>
 
   <div id = "content">
-  <div id="tryingtocenterthiszoomthinghelpp">
-      <table>
+    <div class = "main" id="tryingtocenterthiszoomthinghelpp">
           <div id = "text">
             <!-- The displays of these are invisible, they are here for the javascript -->
             <p id = "textBody"><%= text %> </p>
@@ -71,17 +69,12 @@
               
             </p>
           </div>
-          <div>
+          <div id="subBox">
             <form action="">
-                <input type="text" id="answer" name="answer"><br>
+                <input placeholder="Type to change the red-word"  type="text" id="answer" name="answer">
+                <input type="submit">
               </form>
           </div>
-          
-        
-
-
-      
-      </table>
 
     </div>
 

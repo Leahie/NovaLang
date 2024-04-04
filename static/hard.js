@@ -4,68 +4,7 @@ let count = 0
 let countTemp = 0
 let modifiers = {}
 let modifiers_gen = {}
-let token; 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-async function getJSON(){
-  return fetch('http://localhost:3000/key')
-    .then(response => response.json())
-    .then(data => {
-      return data;
-  });
-}
-
-function query(word){
-  return new Promise(function(resolve, reject) {
-      $.ajax({
-        method: 'GET',
-        url: 'https://api.api-ninjas.com/v1/thesaurus?word=' + word,
-        headers: { 'X-Api-Key': token.ninja_key},
-        contentType: 'application/json',
-        success: function(result) {
-            console.log(result.synonyms);
-            resolve(result.synonyms);
-        },
-        error: function ajaxError(jqXHR) {
-          reject(jqXHR.responseText);
-        }
-    });
-  });
-}
-
-/* async function query(word){
-  let val;
-    $.ajax({
-      method: 'GET',
-      url: 'https://api.api-ninjas.com/v1/thesaurus?word=' + word,
-      headers: { 'X-Api-Key': token.ninja_key},
-      contentType: 'application/json',
-      success: function(result) {
-          console.log(result.synonyms);
-          val = result.synonyms;
-      },
-      error: function ajaxError(jqXHR) {
-          console.error('Error: ', jqXHR.responseText);
-      }
-  });
-  return val 
-} */
-
-/* async function query(data) {
-	const response = await fetch(
-		"https://api-inference.huggingface.co/models/mrm8488/longformer-base-4096-finetuned-squadv2",
-		{
-			headers: { Authorization: `Bearer ${token.token}` },
-			method: "POST",
-			body: JSON.stringify(data),
-		}
-	);
-	const result = await response.json();
-	return result;
-} */
-
-  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //going through the text 
 
@@ -81,14 +20,6 @@ modifyList = modifyList.replace(/'/g, '"') //replacing all ' with "
 modifyList = JSON.parse(modifyList)
 
 async function everything(){
-  token = await getJSON()
-  console.log(token)
-  for (let i = 0; i < modifyList.length; i++) {
-    temp = textBody[modifyList[i]]
-    textBody[modifyList[i]] = "_".repeat(textBody[modifyList[i]].length)
-    console.log(textBody[i])
-    modifiers_gen[i] = await generateSim(temp)
-  }
   console.log( textBody, modifyList)
 
 let selected = textBody[modifyList[count]]
@@ -240,33 +171,6 @@ function generateText(curr){
 function Generate_random(arr) {
   return arr[(Math.floor(Math.random() * arr.length))];
 }
-
-async function generateSim(word){
-  const response = undefined;
-  //const response = await query(word)
-
-  console.log("response", response)
-  
-  if(response !== undefined && response.length>=2){
-      let tot = response.length
-      let count = 2
-
-      let fin = [word]
-      while(tot-- && count--){
-        fin.push(Generate_random(response))
-      }
-
-      console.log("final array", fin)
-      return fin
-      
-    }
-    
-  
-  return [word, word, word]
-}
-
-
-
 
 let zoom = true;
 let container = document.getElementById("text");

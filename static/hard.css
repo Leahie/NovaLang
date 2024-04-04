@@ -1,0 +1,113 @@
+/* austen edit test */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;1,300&display=swap');
+
+
+#home-nav{
+    border-radius: 2em;
+    margin: 0em 10em;
+    padding: 0em;
+  }
+  
+  #li-Easy{
+    margin-left:2em;
+  }
+  
+  #points{
+    margin-top:1em;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+  
+  #right-nav{
+    position:absolute;
+    right:0;
+  }
+  /* austen teach */
+  
+  h1{
+    font-size: 7em;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .whole{
+    margin:  1em 7em;
+  }
+  
+  .subhead{
+    font-size: 3em;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  #text{
+    margin: 2vh auto;
+    inline-size: 70%;
+    overflow-y: scroll;
+    overflow-x: none;
+    height:45vh;
+    /*overflow-wrap: break-word; */
+    background-color: #FBFBFF;
+    scroll-behavior: smooth;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+  }
+  .header{
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  #tryingtocenterthiszoomthinghelpp {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  
+  #text-corpus {
+    font-size: 5vw;
+    scroll-behavior: smooth;
+  }
+  
+  #textBody, #modifyList{
+    display:none;
+  }
+  
+  
+ul {
+    margin-top: 5vw;
+  }
+  
+  ul.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    text-decoration:none;
+    color:#8C730C;
+    display: inline;
+  }
+  
+li{
+    display: inline;
+  
+    font-family:'Montserrat', sans-serif;
+    font-weight:500;
+  }
+
+  /* New Edits */
+  .main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .main>*{
+    display: inline-block;
+  }
+  
+  .main #subBox form input{
+    outline: none;
+    width: 10vw;
+    font-family: 'Montserrat', sans-serif;
+    padding: .5em;
+    border-radius: 1em;
+  }
+  .main #subBox form #answer{
+    width: 30vw;
+  }

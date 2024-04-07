@@ -100,7 +100,11 @@ router.post('/nova_redirect', (req, res) => {
         res.redirect('/easy');
     }
     else{
-        req.flash('success', 'You Need A Prompt!')
+        req.app.locals.generateResults = {
+            "diff" : diff_query,
+            "auth" : auth_query,
+            "prmt" : undefined
+        };
         res.redirect('/easy');
     }
     
@@ -117,7 +121,7 @@ router.get('/easy', async (req, res)=>{
     console.log(Math.floor(sentence.length/10)+1)
     nums = nums.sort(function(a, b){return a-b})
 
-    if( req.app.locals.generateResults != undefined){
+    if( req.app.locals.generateResults != undefined && req.app.locals.generateResults["prmt"] != undefined){
         let temp = "immediately after,'now start writing' you will write your answer. You are an example in a textbook providing readers with a example to the prompt, answer with complete sentences only. WITHOUT steps and WITHOUT the quotation symbols: please"
 
         let response  = await query({"inputs": `${temp}${req.app.locals.generateResults["prmt"]}, now start writing:`})
@@ -134,13 +138,22 @@ router.get('/easy', async (req, res)=>{
         res.render("pages/home",  {text: JSON.stringify(sentence), 
             modifylist: JSON.stringify(nums), 
             modifiers: ['magically', 'organically', 'going'], 
-            generateResults_diff: req.app.locals.generateResults["diff"],
+            generateResults_diff: "easy",
             generateResults_auth: req.app.locals.generateResults["auth"],
             generateResults_prmt: req.app.locals.generateResults["prmt"],
             cadaAuthor : allAuthors
             })
         }
-
+    else if(req.app.locals.generateResults != undefined){
+        res.render("pages/home",  {text: JSON.stringify(sentence), 
+            modifylist: JSON.stringify(nums), 
+            modifiers: ['magically', 'organically', 'going'], 
+            generateResults_diff: "easy",
+            generateResults_auth: "",
+            generateResults_prmt: "",
+            cadaAuthor : allAuthors
+            })
+        }
     else{
         res.render("pages/home",  {text: JSON.stringify(sentence), 
             modifylist: JSON.stringify(nums), 
@@ -169,7 +182,7 @@ router.get('/hard', async (req, res) =>{
     let nums = arrayRange(1, sentence.length)
     console.log(Math.floor(sentence.length/10)+1)
 
-    if( req.app.locals.generateResults != undefined){
+    if( req.app.locals.generateResults != undefined && req.app.locals.generateResults["prmt"] != undefined){
         let temp = "immediately after,'now start writing' you will write your answer. You are an example in a textbook providing readers with a example to the prompt, answer with complete sentences only. WITHOUT steps and WITHOUT the quotation symbols: please"
 
         let response  = await query({"inputs": `${temp}${req.app.locals.generateResults["prmt"]}, now start writing:`})
@@ -192,12 +205,22 @@ router.get('/hard', async (req, res) =>{
             cadaAuthor : allAuthors
             })
         }
+    else if(req.app.locals.generateResults != undefined){
+        res.render("pages/hard",  {text: JSON.stringify(sentence), 
+            modifylist: JSON.stringify(nums), 
+            modifiers: ['magically', 'organically', 'going'], 
+            generateResults_diff: req.app.locals.generateResults["diff"],
+            generateResults_auth: "",
+            generateResults_prmt: "",
+            cadaAuthor : allAuthors
+            })
+        }
         
     else{
         res.render("pages/hard",  {text: JSON.stringify(sentence), 
             modifylist: JSON.stringify(nums), 
             modifiers: ['magically', 'organically', 'going'], 
-            generateResults_diff: "",
+            generateResults_diff: "hard",
             generateResults_auth: "",
             generateResults_prmt: "",
             cadaAuthor : allAuthors

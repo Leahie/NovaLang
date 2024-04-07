@@ -1,10 +1,12 @@
 
 //Globals
-let count = 0
-let countTemp = 0
+let count = 1
+let countTemp = 1
 let modifiers = {}
 let modifiers_gen = {}
-
+let keybinds; 
+let timer,
+    timeoutVal = 1000;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //going through the text 
 
@@ -25,26 +27,26 @@ async function everything(){
 let selected = textBody[modifyList[count]]
 
 
-if(FirstTime == true){
-    let textCorpus = document.querySelector("#text-corpus")
-    let temp = "";
-    for( let i = 0; i < textBody.length; i++  ){
-      if(i==modifyList[count]){
-          temp = temp + " " + `<span id='${count}' style='color:red;'>${textBody[i]}</span>`
+  if(FirstTime == true){
+      let textCorpus = document.querySelector("#text-corpus")
+      let temp = "";
+      for( let i = 0; i < textBody.length; i++  ){
+        if(i==count){
+            temp = temp + " " + `<span id='${count}' style='color:red;'>${textBody[i]}</span>`
+        }
+        else{
+            temp = temp + " " + textBody[i]
+        }
       }
-      else{
-          temp = temp + " " + textBody[i]
+
+      textCorpus.innerHTML = temp
+      let currOpt = document.querySelectorAll(".modifiers")
+      for(let i=0; i < currOpt.length; i++ ){
+        currOpt[i].innerHTML = modifiers_gen[count][i]
       }
-    }
 
-    textCorpus.innerHTML = temp
-    let currOpt = document.querySelectorAll(".modifiers")
-    for(let i=0; i < currOpt.length; i++ ){
-      currOpt[i].innerHTML = modifiers_gen[count][i]
-    }
-
-    FirstTime = false
-}
+      FirstTime = false
+  }
 }
 
 
@@ -52,27 +54,29 @@ if(FirstTime == true){
 
 
 everything()
-
-$(document).keydown(function(e) {
-switch (e.which) {
-    case 37: // left
-        next(null, false, -1, countTemp);
-        break;  
-
-    case 39: // right
-        next(null, false, 1, countTemp)
-        break;
-
-    case 49:
-        next(0)
-
-    case 50:
-        next(1)
-
-    case 51:
-        next(2)
+if(keybinds){
+  $(document).keydown(function(e) {
+    switch (e.which) {
+        case 37: // left
+            next(null, false, -1, countTemp);
+            break;  
+  
+        case 39: // right
+            next(null, false, 1, countTemp)
+            break;
+  
+        case 49:
+            next(0)
+  
+        case 50:
+            next(1)
+  
+        case 51:
+            next(2)
+    }
+    });
 }
-});
+
 
 // Pressing one of the lis 
 function next(option, countTrue=true, add=1, curr=count){
@@ -90,12 +94,12 @@ function next(option, countTrue=true, add=1, curr=count){
   }
   if(countTrue){
       if(countTemp < modifyList.length){
+        console.log("counttemp count", countTemp, count)
         if(countTemp==count){
           let currOpt = modifiers_gen[count]
           //let currOpt = document.querySelectorAll(".modifiers")
-          console.log(option)
-          console.log(currOpt[option])
-          modifiers[count] = currOpt[option]
+
+          modifiers[count] = option
 
           let choices = document.querySelector("#choices")
           choices.innerText = JSON.stringify(modifiers)
@@ -110,10 +114,8 @@ function next(option, countTrue=true, add=1, curr=count){
         else{
           let currOpt = modifiers_gen[countTemp]
           //let currOpt = document.querySelectorAll(".modifiers")
-          console.log(option)
-          console.log(currOpt[option])
-          modifiers[countTemp] = currOpt[option]
 
+          modifiers[countTemp] = option
           let choices = document.querySelector("#choices")
           choices.innerText = JSON.stringify(modifiers)
           console.log(modifiers)
@@ -140,17 +142,18 @@ function next(option, countTrue=true, add=1, curr=count){
 function generateText(curr){
   let textCorpus = document.querySelector("#text-corpus")
   let temp = "";
+  console.log("ARRIVED AT GENERATE TEXT", textBody, modifyList)
   for( let i = 0; i < textBody.length; i++  ){
-      if(i==modifyList[curr]){
-        console.log(textBody[i])
+      if(i==curr){
+        console.log("If 1", textBody[i])
         temp = temp + " " + `<span id='${curr}' style='color:red;'>${textBody[i]}</span>`
       }
-      else if(modifyList.includes(i)){
-        index = modifyList.indexOf(i);
-        if (index<count){ 
-          temp = temp + " " + `<span  style='color:blue;'>${modifiers[index]}</span>` ;
+      
+      else if(i<count && modifyList.includes(i)){
+        console.log('modifiers', modifiers[i])
+        temp = temp + " " + `<span  style='color:blue;'>${modifiers[i]}</span>` ;
         }
-      }
+    
       
       else{
         temp = temp + " " + textBody[i];
@@ -177,25 +180,27 @@ let container = document.getElementById("text");
 let text = document.getElementById("text-corpus");
 
 window.addEventListener('keydown', e => {
+  if (keybinds){
     switch (e.key) { 
-        case ' ':
-        if (zoom == true){
-            zoom = false;
-            text.style = 'font-size: 1.5vw'
-            container.style = 'display: inline-block; height: unset'
-        }
-    
+      case ' ':
+      if (zoom == true){
+          zoom = false;
+          text.style = 'font-size: 1.5vw'
+          container.style = 'display: inline-block; height: unset'
+      }
+  
 
-        else if (zoom == false){
-            zoom = true;
-            text.style = 'font-size: 5vw'
-            container.style = 'display: inline-block; height: 45vh'
-            document.getElementById(countTemp).scrollIntoView()({
-                behavior: 'smooth'
-            });
-        }
+      else if (zoom == false){
+          zoom = true;
+          text.style = 'font-size: 5vw'
+          container.style = 'display: inline-block; height: 45vh'
+          document.getElementById(countTemp).scrollIntoView()({
+              behavior: 'smooth'
+          });
+      }
 
     }
+  } 
 });
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -365,3 +370,25 @@ window.addEventListener('keydown', e => {
         highlight(index);
     }
 );
+
+const response = document.querySelector("#response");
+
+$(response).focus( function(){
+  console.log("False")
+  keybinds=false;
+})
+
+$(response ).blur( function() {
+  console.log("true")
+  keybinds=true;
+});
+
+const ton = document.querySelector("#ton");
+ton.addEventListener("click", function(e){
+  e.preventDefault();
+  const result = response.value;
+  response.value = "";
+  console.log(result)
+
+  next(result);
+});

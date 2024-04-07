@@ -111,3 +111,8 @@ li{
   .main #subBox form #answer{
     width: 30vw;
   }
+
+  form{
+    margin-bottom:2em;
+    padding: .5em;
+  }

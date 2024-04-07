@@ -16,7 +16,7 @@ const userRoutes = require('./routes/user');
 const gameRoutes = require('./routes/game')
 require('dotenv').config()
 
-console.log(process.env.TOKEN)
+console.log(process.env)
 const uri = process.env.MONGODB_CONNECTION_STRING;
 
 //const config = require('./config');
@@ -93,6 +93,7 @@ app.get('/', (req,res)=>{
 })
 
 app.get('/submitted', async(req, res)=>{
+    
     res.render("pages/submit")
 })
 
@@ -110,7 +111,7 @@ app.get('/key', async(req, res)=>{
 })
 //////////////////////////////////////// LOG IN AND SIGN OUT
 app.get('/profile', isLoggedIn, async (req,res)=>{
-    res.render('pages/profile', {username: req.user.username});
+    res.render('pages/profile', {username: req.user.username });
 })
 
 

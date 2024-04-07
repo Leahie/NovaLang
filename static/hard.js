@@ -91,6 +91,7 @@ function next(option, countTrue=true, add=1, curr=count){
       location.href = "submitted";
   };
     myDiv.appendChild(newButton);
+    count++;
   }
   if(countTrue){
       if(countTemp < modifyList.length){

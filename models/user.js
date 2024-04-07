@@ -17,6 +17,21 @@ const UserSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    countEasy: {
+        type: int,
+        required: true,
+        default: false
+    },
+    countMedium: {
+        type: int,
+        required: true,
+        default: false
+    },
+    countHard: {
+        type: int,
+        required: true,
+        default: false
     }
 });
 

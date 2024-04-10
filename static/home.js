@@ -4,7 +4,9 @@ let count = 0
 let countTemp = 0
 let modifiers = {}
 let modifiers_gen = {}
+let answers = {}
 let token; 
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -85,9 +87,13 @@ async function everything(){
   console.log(token)
   for (let i = 0; i < modifyList.length; i++) {
     temp = textBody[modifyList[i]]
+    answers[i] = temp
     textBody[modifyList[i]] = "_".repeat(textBody[modifyList[i]].length)
     console.log(textBody[i])
-    modifiers_gen[i] = await generateSim(temp)
+    let x  = await generateSim(temp)
+    shuffle(x)
+    modifiers_gen[i] = x
+    
   }
   console.log( textBody, modifyList)
 
@@ -145,19 +151,9 @@ e.preventDefault();
 });
 
 // Pressing one of the lis 
-function next(option, countTrue=true, add=1, curr=count){
+async function next(option, countTrue=true, add=1, curr=count){
   console.log(`${count} ${modifyList.length}`);
-  if(count+1 == modifyList.length){
-    console.log("GOT HERE")
-    const newButton = document.createElement('button');
-    newButton.className = "btn btn-primary btn-lg"
-    newButton.textContent = 'Check Your Accuracy';
-    let myDiv = document.querySelector("#submission")
-    newButton.onclick = function () {
-      location.href = "submitted";
-  };
-    myDiv.appendChild(newButton);
-  }
+
   if(countTrue){
       if(countTemp < modifyList.length){
         if(countTemp==count){
@@ -166,7 +162,6 @@ function next(option, countTrue=true, add=1, curr=count){
           console.log(option)
           console.log(currOpt[option])
           modifiers[count] = currOpt[option]
-
           let choices = document.querySelector("#choices")
           choices.innerText = JSON.stringify(modifiers)
           console.log(modifiers)
@@ -177,7 +172,7 @@ function next(option, countTrue=true, add=1, curr=count){
           console.log(modifiers)
           generateText(count)
         }
-        else{
+        else if (countTemp<count){
           let currOpt = modifiers_gen[countTemp]
           //let currOpt = document.querySelectorAll(".modifiers")
           console.log(option)
@@ -204,7 +199,38 @@ function next(option, countTrue=true, add=1, curr=count){
       generateText(countTemp);      
       }
   }
-  
+  if(count >= modifyList.length){
+    if (count == modifyList.length){
+      console.log("GOT HERE")
+      let score = await checkScore(modifiers, answers)
+      console.log(score)
+      const newButton = document.createElement('button');
+      newButton.className = "btn btn-primary btn-lg"
+      newButton.textContent = 'Check Your Accuracy';
+      let myDiv = document.querySelector("#submission")
+      $("#var1").val(score);
+      newButton.onclick = function () {
+        $("#form").submit();;
+    };
+      myDiv.appendChild(newButton);
+      count++;
+    }
+    else{
+      return null; 
+    }
+    
+  }
+}
+
+async function checkScore(choices, answer){
+  let score = 0;
+  let total = 0;
+  console.log("things", choices, answer)
+  for(let i = 0; i<modifyList.length; i++){
+    if(choices[i] === answer[i]) score ++
+    total++
+  }
+  return (score/total)
 }
 
 function generateText(curr){
@@ -266,7 +292,21 @@ async function generateSim(word){
   return [word, word, word]
 }
 
+function shuffle(array) {
+  let currentIndex = array.length;
 
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
 
 
 let zoom = true;

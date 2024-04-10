@@ -1085,6 +1085,13 @@ platform@^1.3.6:
   resolved "https://registry.npmjs.org/platform/-/platform-1.3.6.tgz"
   integrity sha512-fnWVljUchTro6RiCFvCXBbNhJc2NijN7oIQxbwsyL0buWJPG85v81ehlHI9fXrJsMNgTofEoWIQeClKpgxFLrg==
 
+positivity-api@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/positivity-api/-/positivity-api-1.2.0.tgz"
+  integrity sha512-UqS/I+bSarc2XNXBsUECIsGosyErnNUM14mBbcMhG4sF/+Zx5M9dKAwt/xsgOqb5kPNfgy6DyxZRCYBLaoUi8w==
+  dependencies:
+    unique-random-array "1.0.0"
+
 prebuild-install@^7.1.1:
   version "7.1.2"
   resolved "https://registry.npmjs.org/prebuild-install/-/prebuild-install-7.1.2.tgz"
@@ -1446,6 +1453,18 @@ undici-types@~5.26.4:
   version "5.26.5"
   resolved "https://registry.npmjs.org/undici-types/-/undici-types-5.26.5.tgz"
   integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
+
+unique-random-array@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/unique-random-array/-/unique-random-array-1.0.0.tgz"
+  integrity sha512-vtj2yltjcHPa69nFjNJ3xnhsEwE8pMyjqUQDw2myz/iSezqf4YCAcygwFQEsOgMid5VNW/dCPbnb2BcmaDCCKg==
+  dependencies:
+    unique-random "^1.0.0"
+
+unique-random@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/unique-random/-/unique-random-1.0.0.tgz"
+  integrity sha512-K1sUkPf9EXCZFNIlMCoX4icAqcvkR4FMPH4Z61HbyiWhQl1ZGo0zYeV2bJmocK8Cp6tnKYrCnpkeKGebXZoRTQ==
 
 unpipe@~1.0.0, unpipe@1.0.0:
   version "1.0.0"

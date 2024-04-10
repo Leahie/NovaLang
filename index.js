@@ -13,18 +13,15 @@ const speakeasy = require("speakeasy")
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
-const gameRoutes = require('./routes/game')
+const gameRoutes = require('./routes/game');
+const positivity = require('positivity-api');
 require('dotenv').config()
 
-console.log(process.env)
 const uri = process.env.MONGODB_CONNECTION_STRING;
 
 //const config = require('./config');
 
-mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect(uri);
 
 const db = mongoose.connection;
 /* 
@@ -92,9 +89,13 @@ app.get('/', (req,res)=>{
     res.render("pages/landing")
 })
 
-app.get('/submitted', async(req, res)=>{
-    
-    res.render("pages/submit")
+app.post('/submitted', (req, res)=>{
+    console.log(req.body)
+    res.redirect(`/submitted/${parseInt(req.body.var1)}`);
+})
+app.get('/submitted/:score', async(req, res)=>{
+    console.log(req.params.score)
+    res.render("pages/submit", {score: req.params.score, statement: positivity.random()})
 })
 
 app.get('/tutorial', isLoggedIn, async (req,res)=>{

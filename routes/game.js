@@ -40,21 +40,21 @@ function randomInts(num, max){
     return [...nums]
 }
 
-async function query(data) {
-	const response = await fetch(
-		"https://api-inference.huggingface.co/models/google/gemma-7b",
-		{
-			headers: { 
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${process.env.TOKEN}`
-             },
-			method: "POST",
-			body: JSON.stringify(data),
-		}
-	);
-    console.log(response)
-	const result = await response.json();
-	return result;
+async function query(data){
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/google/gemma-7b",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.TOKEN}`
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+    );
+    console.log(response);
+    const result = await response.json();
+    return result;
 }
 
 
@@ -121,12 +121,17 @@ router.get('/easy', async (req, res)=>{
     console.log(Math.floor(sentence.length/10)+1)
     nums = nums.sort(function(a, b){return a-b})
 
-    if( req.app.locals.generateResults != undefined && req.app.locals.generateResults["prmt"] != undefined){
-        let temp = "immediately after,'now start writing' you will write your answer. You are an example in a textbook providing readers with a example to the prompt, answer with complete sentences only. WITHOUT steps and WITHOUT the quotation symbols: please"
+    if (req.app.locals.generateResults != undefined && req.app.locals.generateResults["prmt"] != undefined) {
+        const prompt = `GIVE ME A GOOD EXAMPLE OF ${req.app.locals.generateResults["prmt"]}. Please just give me the example. Please do not inlcude this phrase in your response. Don't give me a step by step guide, just give me a GOOD example of ${req.app.locals.generateResults["prmt"]}, and try to be as humanly as possible.`;
+        
+        let response = await query({ inputs: prompt });
+        console.log(response);
 
-        let response  = await query({"inputs": `${temp}${req.app.locals.generateResults["prmt"]}, now start writing:`})
-        console.log(response)
-        line = (response[0]['generated_text']).slice(temp.length + req.app.locals.generateResults["prmt"].length)
+        let exampleStart = response[0]['generated_text'].indexOf("answer:");
+        if (exampleStart === -1) {
+        exampleStart = response[0]['generated_text'].indexOf(":") + 1;
+        }
+        line = response[0]['generated_text'].slice(exampleStart);
 
         let sentence = line.split(" ");//makes the sentence a list 
         console.log( line, sentence)
@@ -182,12 +187,17 @@ router.get('/hard', async (req, res) =>{
     let nums = arrayRange(1, sentence.length)
     console.log(Math.floor(sentence.length/10)+1)
 
-    if( req.app.locals.generateResults != undefined && req.app.locals.generateResults["prmt"] != undefined){
-        let temp = "immediately after,'now start writing' you will write your answer. You are an example in a textbook providing readers with a example to the prompt, answer with complete sentences only. WITHOUT steps and WITHOUT the quotation symbols: please"
+    if (req.app.locals.generateResults != undefined && req.app.locals.generateResults["prmt"] != undefined) {
+        const prompt = `GIVE ME A GOOD EXAMPLE OF ${req.app.locals.generateResults["prmt"]}. Please just give me the example. Please do not inlcude this phrase in your response. Don't give me a step by step guide, just give me a GOOD example of ${req.app.locals.generateResults["prmt"]}, and try to be as humanly as possible.`;
+    
+        let response = await query({ inputs: prompt });
+        console.log(response);
 
-        let response  = await query({"inputs": `${temp}${req.app.locals.generateResults["prmt"]}, now start writing:`})
-        console.log(response)
-        line = (response[0]['generated_text']).slice(temp.length + req.app.locals.generateResults["prmt"].length)
+        let exampleStart = response[0]['generated_text'].indexOf("answer:");
+        if (exampleStart === -1) {
+        exampleStart = response[0]['generated_text'].indexOf(":") + 1;
+        }
+        line = response[0]['generated_text'].slice(exampleStart);
 
         let sentence = line.split(" ");//makes the sentence a list 
         console.log( line, sentence)

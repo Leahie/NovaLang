@@ -138,6 +138,7 @@
 
 
     </style>
+    
 
     <div id="border" style="margin-top: 2vw;">
 
@@ -173,7 +174,7 @@
             <br>
             <table class="categoryTable">
                 <tr>
-                    <td><div id="levelItem"><a id="author_shakespeare" onclick="author_shakespeare()">William Shakespeare</a></div></td>
+                    <td><div id="levelItem"><a id="author_shakespeare" onclick="author_shakespeare()" >William Shakespeare</a></div></td>
                     <td><div id="levelItem"><a id="author_decervantes" onclick="author_decervantes()">Miguel de Cervantes</a></div></td>
                     <td><div id="levelItem"><a id="author_oda" onclick="author_oda()">Eiichiro Oda</a></div></td>
                 </tr>
@@ -187,21 +188,11 @@
             <br>
             <table class="categoryTable">
                 <tr>
-                    <td><input autocomplete="off" id="promptTextBox" type="text" name="prompt"></td>
+                    <td><input autocomplete="off" id="promptTextBox" type="text" name="prompt"><button style = "background-color:#000" onclick="submit()"><img id = "theImage" src = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTFHuZW2Xd8oXfiHJOBPhY4M45FOnMZTW98mGZErVF-DvQQtDoU" length = "45" width="30" height="25"></button></td>
                 </tr>
             </table>
+            
         </div>
-        
-        <br><br><hr><br><br>
-
-        <div>
-            <table class="categoryTable">
-                <tr>
-                    <td><div id="levelItem"><a style="border: 0.35vw solid blue; font-weight: bolder; font-size: 1.5em;" onclick="submit()">Generate!</a></div></td>                    
-                </tr>
-            </table>
-        </div>
-
         
     </div>
 
@@ -285,6 +276,8 @@
         // SUBMIT
         function submit()
         {
+            document.getElementById("theImage").src="https://blog.motionisland.com/wp-content/uploads/2019/09/After-Effects-Arrow-25.gif";
+
             // PROMPT
             promptText = promptTextBox.value;
             console.log(difficulty);

@@ -1,21 +1,32 @@
+const bodyparser = require("body-parser")
 const express = require("express");
-const path = require('path');
-const mongoose = require('mongoose');
-const session = require('express-session');
 const ejsMate = require('ejs-mate');
 const flash = require('connect-flash');
 const fs = require("fs")
-const methodOverride = require('method-override');
-const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override');
+const path = require('path');
+const passport = require('passport');
+const session = require('express-session');
+const speakeasy = require("speakeasy")
 const User = require('./models/user')
 const {isLoggedIn} = require('./middleware');
 const userRoutes = require('./routes/user');
+const gameRoutes = require('./routes/game');
+const positivity = require('positivity-api');
+require('dotenv').config()
 
-mongoose.connect('mongodb://127.0.0.1:27017/nova');
+const uri = process.env.MONGODB_CONNECTION_STRING;
+
+//const config = require('./config');
+
+mongoose.connect(uri);
 
 const db = mongoose.connection;
+/* 
 db.on("error", console.error.bind(console, "connection error:"));
+*/
 db.once("open", () => {
     console.log("Database connected");
 });
@@ -40,6 +51,7 @@ const sessionConfig = {
     }
 }
 
+
 app.use(session(sessionConfig))
 
 app.use(passport.initialize());
@@ -49,11 +61,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()); // How to STORE user
 passport.deserializeUser(User.deserializeUser()); // How to UNSTORE user
 
-
-
 const static_files_router = express.static('static')
 app.use( static_files_router ) 
 app.use(flash());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /// REMEMBER when you get an incorrect password and something flashes up, basically this, is a MIDDLEWARE - LEAH
 app.use((req,res, next) =>{
@@ -63,97 +75,45 @@ app.use((req,res, next) =>{
     next();
 })
 
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended:true}));
+
 app.use('/', userRoutes);
+app.use('/', gameRoutes);
+
 
 // COMMENT by LEAH important functions that we use 
-
-function process(txt){
-    return new Promise((resolve, reject)=>{
-        fs.readFile(txt, (err, inputD) => {
-            if (err)  reject(err);
-            let val = inputD.toString();
-            let lines = [];
-            let sentence = "";
-            for (let i = 0;i<val.length; i++){
-                if(val[i]=="\n")sentence+= " ";
-                else if(val[i]=='.' || val[i]==';' || val[i]=='!'){
-                    sentence+=val[i]
-                    if (sentence.length>=50 && !sentence.includes('_'))
-                        lines.push(sentence); 
-                    sentence = "";
-                }
-                else{
-                    sentence+=val[i]
-                } 
-            }
-            resolve(lines)
-        })
-    })
-    
-    
-}
-
-function randomInts(num, max){
-    let nums = new Set();
-    while(nums.size<num){
-        var candidateInt = Math.floor(Math.random() * (max)) + 1
-        nums.add(candidateInt)
-    }
-    return [...nums]
-}
-
-async function query(data) {
-    let token 
-	const response = await fetch(
-		"https://api-inference.huggingface.co/models/striki-ai/william-shakespeare-poetry",
-		{
-			headers: { Authorization: `Bearer ${token}` },
-			method: "POST",
-			body: JSON.stringify(data),
-		}
-	);
-	const result = await response.json();
-	return result;
-}
-
-
-let text = './ml/Pride_and_Prejudice_by_Jane_Austen.txt'
 
 // COMMENT by LEAH actual functions for the pages 
 app.get('/', (req,res)=>{
     res.render("pages/landing")
 })
 
-app.get('/nova', async (req, res)=>{
-    let lines = await process(text);//generates the whole 
-    let index = Math.floor(Math.random() * lines.length);
-    let sentence = lines[index].split(" ");//makes the sentence a list 
-    console.log( lines[index], sentence)
-    let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
-    console.log(Math.floor(sentence.length/10)+1)
-    nums = nums.sort(function(a, b){return a-b})
-    console.log(nums)
-    query({"inputs": "Can you please let us know more details about your "}).then((response) => {
-        console.log(JSON.stringify(response));
-    });
-
-    res.render("pages/home",  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
+app.post('/submitted', (req, res)=>{
+    console.log(req.body)
+    res.redirect(`/submitted/${parseInt(req.body.var1)}`);
+})
+app.get('/submitted/:score', async(req, res)=>{
+    console.log(req.params.score)
+    res.render("pages/submit", {score: req.params.score, statement: positivity.random()})
 })
 
 app.get('/tutorial', isLoggedIn, async (req,res)=>{
-    let lines = await process(text);//generates the whole 
-    let index = Math.floor(Math.random() * lines.length);
-    let sentence = lines[index].split(" ");//makes the sentence a list 
-    console.log( lines[index], sentence)
-    let nums = randomInts(Math.floor(sentence.length/10)+1, sentence.length);
-    console.log(Math.floor(sentence.length/10)+1)
-    nums = nums.sort(function(a, b){return a-b})
-    console.log(nums)
-    
-    res.render('pages/tutorial',  {text: JSON.stringify(sentence), modifylist: JSON.stringify(nums), modifiers: ['magically', 'organically', 'going']})
+    res.send("Hidden Page!")
+  })
+
+app.get('/key', async(req, res)=>{
+    res.setHeader('Content-Type', 'application/json');
+    key = {
+        "token" : process.env.TOKEN,
+        "ninja_key": process.env.NINJA_KEY
+    }
+    res.send(JSON.stringify(key))
 })
 //////////////////////////////////////// LOG IN AND SIGN OUT
-
+app.get('/profile', isLoggedIn, async (req,res)=>{
+    res.render('pages/profile', {username: req.user.username });
+})
 
 
 

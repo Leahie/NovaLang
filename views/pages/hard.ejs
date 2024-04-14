@@ -4,10 +4,8 @@
 #button_regenerate {
   border-radius: 0.5vw;
 }
-
 </style>
-<link rel="stylesheet" href="home.css">
-
+<link rel="stylesheet" href="hard.css">
 
 <div id="wrapper">
   <nav class="navbar navbar-expand-lg navbar-light bg-light" id="home-nav">
@@ -59,10 +57,8 @@
   </nav>
 
   <div id = "content">
-  <div id="tryingtocenterthiszoomthinghelpp">
-      <table>
-        <tr class = "darkmode">
-          <td><div id = "text">
+    <div class = "main" id="tryingtocenterthiszoomthinghelpp">
+          <div id = "text">
             <!-- The displays of these are invisible, they are here for the javascript -->
             <p id = "textBody"><%= text %> </p>
             <p id = "modifyList"><%= modifylist %></p>
@@ -72,35 +68,23 @@
             <p id="text-corpus">
               
             </p>
-          </div></td>
-        </tr>
-        
-
-
-        <tr>
-          <td><div id = "answers">
-            <ul class="no-bullets">
-              <li><a class = "option1 modifiers" onclick="next(0)"><%=modifiers[0]%></a></li>
-              <li><a class = "option2 modifiers" onclick="next(1)"><%=modifiers[1]%></a></li>
-              <li><a class = "option3 modifiers" onclick="next(2)"><%=modifiers[2]%></a></li>
-              
-            </ul>
-          </div></td>
-        
-        
-      </table>
+          </div>
+          <div id="subBox">
+            <form action="" onsubmit="return answer()">
+                <input id="response" autocomplete="off" placeholder="Type to change the red-word"  type="text" id="answer" name="answer">
+                <input id="ton"  type="submit">
+              </form>
+          </div>
 
     </div>
-    <form style="display: none" action="/submitted" method="POST" id="form">
-      <input type="hidden" id="var1" name="var1" value=""/>
-    </form>
+
   </div>
   <div id = "submission" style=" margin:0 auto; text-align: center;">
   </div>
   <button type="button" class="btn" id="btn-guide"><i class="bi bi-question-circle-fill"></i> Walkthrough</button>
 </div>
 
-<script src="home.js"></script>
+<script src="hard.js"></script>
 
 <script>
 

@@ -111,8 +111,6 @@
             align-items: center;
             text-align: center;
 
-            user-select: none;
-
             border: 0.35vw solid black;
             border-radius: 1vw;
             width: 15vw; height: 5vw;
@@ -138,15 +136,14 @@
 
 
     </style>
-    
 
     <div id="border" style="margin-top: 2vw;">
 
-        <h1><strong>WELCOME TO <i>NovaLang</i>!</strong></h1>
+        <h1><strong>HELLO THERE, <i><%= username %></i>!</strong></h1>
 
         <br><br><hr><br><br>
 
-        <h3>Nova Lang is a web-application that simulates social situations through the usage of a large language model (LLM) trained on famous texts, designed to help kids improve writing and communication skills by using works of famous authors.</h3>
+        <h3>Waht would you like to write today?</h3>
         
     </div>
     
@@ -174,7 +171,7 @@
             <br>
             <table class="categoryTable">
                 <tr>
-                    <td><div id="levelItem"><a id="author_shakespeare" onclick="author_shakespeare()" >William Shakespeare</a></div></td>
+                    <td><div id="levelItem"><a id="author_shakespeare" onclick="author_shakespeare()">William Shakespeare</a></div></td>
                     <td><div id="levelItem"><a id="author_decervantes" onclick="author_decervantes()">Miguel de Cervantes</a></div></td>
                     <td><div id="levelItem"><a id="author_oda" onclick="author_oda()">Eiichiro Oda</a></div></td>
                 </tr>
@@ -188,11 +185,21 @@
             <br>
             <table class="categoryTable">
                 <tr>
-                    <td><input autocomplete="off" id="promptTextBox" type="text" name="prompt"><button style = "background-color:#000" onclick="submit()"><img id = "theImage" src = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTFHuZW2Xd8oXfiHJOBPhY4M45FOnMZTW98mGZErVF-DvQQtDoU" length = "45" width="30" height="25"></button></td>
+                    <td><input id="promptTextBox" type="text" name="prompt"></td>
                 </tr>
             </table>
-            
         </div>
+        
+        <br><br><hr><br><br>
+
+        <div>
+            <table class="categoryTable">
+                <tr>
+                    <td><div id="levelItem"><a style="border: 0.35vw solid blue; font-weight: bolder; font-size: 1.5em;" onclick="submit()">Generate!</a></div></td>                    
+                </tr>
+            </table>
+        </div>
+
         
     </div>
 
@@ -276,8 +283,6 @@
         // SUBMIT
         function submit()
         {
-            document.getElementById("theImage").src="https://blog.motionisland.com/wp-content/uploads/2019/09/After-Effects-Arrow-25.gif";
-
             // PROMPT
             promptText = promptTextBox.value;
             console.log(difficulty);
@@ -291,7 +296,7 @@
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    window.location.href = '/easy';
+                    window.location.href = '/nova';
                 }
             };
 

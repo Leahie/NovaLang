@@ -122,16 +122,15 @@ router.get('/easy', async (req, res)=>{
     nums = nums.sort(function(a, b){return a-b})
 
     if (req.app.locals.generateResults != undefined && req.app.locals.generateResults["prmt"] != undefined) {
-        const prompt = `GIVE ME A GOOD EXAMPLE OF ${req.app.locals.generateResults["prmt"]}. Please just give me the example. Please do not inlcude this phrase in your response. Don't give me a step by step guide, just give me a GOOD example of ${req.app.locals.generateResults["prmt"]}, and try to be as humanly as possible.`;
+        const prompt = `Hey Gemini, you are a helpful chatbot that responds carefully to every prompt and suggestion; when someone asks you to write an email or create a presentation, generate the content in the requested format, ensuring it's detailed and well-formatted.
+        You are an exemplare text generator you are not providing guidelines or you are giving FULL TEXT no BLANK SPACES, you are the orignal text and others follow your example. You are writing professionally and with care. Thank you! Don't forget to try to finish the example
+        within one paragraph, this example is not a list of instructions, you are not talking to the user you are just providing an example. Now I am asking you to please provide an example of: ${req.app.locals.generateResults["prmt"] }`;
         
         let response = await query({ inputs: prompt });
         console.log(response);
 
-        let exampleStart = response[0]['generated_text'].indexOf("answer:");
-        if (exampleStart === -1) {
-        exampleStart = response[0]['generated_text'].indexOf(":") + 1;
-        }
-        line = response[0]['generated_text'].slice(exampleStart);
+
+        line = response[0]['generated_text'].slice(prompt.length);
 
         let sentence = line.split(" ");//makes the sentence a list 
         console.log( line, sentence)

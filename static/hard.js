@@ -1,7 +1,7 @@
 
 //Globals
-let count = 1
-let countTemp = 1
+let count = 0
+let countTemp = 0
 let modifiers = {}
 let modifiers_gen = {}
 let keybinds; 
@@ -31,16 +31,22 @@ let selected = textBody[modifyList[count]]
       let textCorpus = document.querySelector("#text-corpus")
       let temp = "";
       for( let i = 0; i < textBody.length; i++  ){
-        if(i==count){
+        if(textBody[i]!=='' && textBody[i]!==' ' && textBody[i]!=='“' && textBody[i]!=='”'){
+          if(i==count){
+            
             temp = temp + " " + `<span id='${count}' style='color:red;'>${textBody[i]}</span>`
         }
+          else{
+              temp = temp + " " + textBody[i]
+          }
+        }
         else{
-            temp = temp + " " + textBody[i]
+          count++; countTemp++;
         }
       }
-
       textCorpus.innerHTML = temp
       let currOpt = document.querySelectorAll(".modifiers")
+      console.log(currOpt)
       for(let i=0; i < currOpt.length; i++ ){
         currOpt[i].innerHTML = modifiers_gen[count][i]
       }
@@ -145,6 +151,7 @@ function generateText(curr){
   let temp = "";
   console.log("ARRIVED AT GENERATE TEXT", textBody, modifyList)
   for( let i = 0; i < textBody.length; i++  ){
+    if(textBody[i]!=='' && textBody[i]!==' ' && textBody[i]!=='“' && textBody[i]!=='”'){
       if(i==curr){
         console.log("If 1", textBody[i])
         temp = temp + " " + `<span id='${curr}' style='color:red;'>${textBody[i]}</span>`
@@ -159,6 +166,7 @@ function generateText(curr){
       else{
         temp = temp + " " + textBody[i];
       }
+    }
   }
   
   textCorpus.innerHTML = temp
@@ -375,12 +383,10 @@ window.addEventListener('keydown', e => {
 const response = document.querySelector("#response");
 
 $(response).focus( function(){
-  console.log("False")
   keybinds=false;
 })
 
 $(response ).blur( function() {
-  console.log("true")
   keybinds=true;
 });
 
@@ -389,7 +395,8 @@ ton.addEventListener("click", function(e){
   e.preventDefault();
   const result = response.value;
   response.value = "";
-  console.log(result)
-
-  next(result);
+  if (result!=textBody[countTemp]){
+    next(result);
+  }
+  
 });

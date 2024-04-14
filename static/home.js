@@ -76,6 +76,8 @@ let textBody =  document.querySelector('#textBody').innerHTML // This is how we 
 
 textBody1 = textBody.replace(/\\n/g, "").replace(/\\/g, "")//replacing all ' with "
 
+console.log(textBody1)
+
 textBody = JSON.parse(textBody1)
 
 let modifyList = document.querySelector('#modifyList').innerHTML 

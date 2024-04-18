@@ -4,7 +4,7 @@
   1. [Running On Your Machine](#how-to-run-the-project)
   2. [How to Navigate the Folder Structure](#navigating-the-folder-structure)
   3. [Web Development Component](#web-development-component)
-  5. Summary
+  5. [Summary](#summary)
 
 # How to Run the Project
   1. Clone the Repository
@@ -37,8 +37,18 @@ Google describes Node.js as "a cross-platform, open-source JavaScript runtime en
 The reason we choose Node.js over other platforms like Next.JS or Flask is because Node.js is lightweight. Its backend is convenient and it has access to many frameworks like Express, and Passport, which we use in our app. Later, if we want to focus more on security, we might migrate to Rust. 
 
 ### Passport.JS
-This is how we store user data. [Passport.JS](https://www.passportjs.org/)) uses Bcrypt, a hashing algorithm, to encode passwords and prevent security concerns. 
-## Our Code 
+This is how we store user data. [Passport.JS](https://www.passportjs.org/) uses Bcrypt, a hashing algorithm, to encode passwords and prevent security concerns. 
 
+# Summary
+### Brief 
+A web-application that simulates social situations through the usage of a large language model (LLM) trained on famous texts, designed to help kids improve writing and communication skills by using works of famous authors. 
 
+### Major Components 
+  1. **The Gamemodes**, to suit players with different learning levels
+  2. **The Large Language Model**, creates text to simulate social scripting
+  3. **The User**, to modivate play and fun
 
+### Inspiration and Sources
+  1. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is all you need. Advances in neural information processing systems, 30.
+  2. [Duolingo](https://www.duolingo.com/)
+  3. Node.Js [Documentation ]((https://nodejs.org/docs/latest/api/)

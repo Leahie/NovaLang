@@ -51,4 +51,4 @@ A web-application that simulates social situations through the usage of a large 
 ### Inspiration and Sources
   1. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is all you need. Advances in neural information processing systems, 30.
   2. [Duolingo](https://www.duolingo.com/)
-  3. Node.Js [Documentation ]((https://nodejs.org/docs/latest/api/)
+  3. Node.Js [Documentation ](https://nodejs.org/docs/latest/api/)

@@ -128,6 +128,59 @@ if(FirstTime == true){
 
 
 
+async function handleUserData_easy(score) {
+  try {
+      console.log("==========================================================================")
+      let allDict = await getJSON();
+      let userDict = allDict["currUser"];
+      console.log(userDict);
+
+      let userId = userDict["_id"];
+      let new_numEasy = userDict["numEasy"]+1;
+      let new_easyAccuracy = (userDict["easyAccuracy"]+score)/2;
+
+      if (userDict["easyAccuracy"] == 0){
+        new_easyAccuracy = score;
+      }
+
+      console.log(userId);
+      console.log(new_numEasy);
+      console.log(new_easyAccuracy);
+
+      updateEasy(new_numEasy, new_easyAccuracy, userId);
+      
+  } catch (error) {
+      console.error("Error fetching user data:", error);
+  }
+  
+}
+
+
+async function updateEasy(passed_newNumEasy, passed_newEasyAccuracy, passed_userId) {
+  try {
+      const response = await fetch('/updateNumEasy', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ newNumEasy: passed_newNumEasy,  newEasyAccuracy: passed_newEasyAccuracy,  id: passed_userId})
+      });
+
+      // if (response.ok) {
+      //     alert('numEasy updated successfully!');
+      // } else {
+      //     alert('Failed to update numEasy.');
+      // }
+  } catch (error) {
+      console.error('Error updating numEasy:', error);
+      alert('An error occurred. Please try again later.');
+  }
+}
+
+
+
+
+
 everything()
 
 $(document).keydown(function(e) {
@@ -201,6 +254,13 @@ async function next(option, countTrue=true, add=1, curr=count){
       generateText(countTemp);      
       }
   }
+
+
+
+
+
+
+  // donezo
   if(count >= modifyList.length){
     if (count == modifyList.length){
       console.log("GOT HERE")
@@ -211,9 +271,12 @@ async function next(option, countTrue=true, add=1, curr=count){
       newButton.textContent = 'Check Your Accuracy';
       let myDiv = document.querySelector("#submission")
       $("#var1").val(score);
+
       newButton.onclick = function () {
-        $("#form").submit();;
-    };
+        $("#form").submit();
+        handleUserData_easy(score);
+
+      };
       myDiv.appendChild(newButton);
       count++;
     }

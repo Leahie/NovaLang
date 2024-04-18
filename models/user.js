@@ -13,10 +13,21 @@ const UserSchema = new Schema({
         required: true, 
         unique: true
     },
-    verified: {
-        type: Boolean,
-        required: true,
-        default: false
+    numEasy: {
+        type: Number,
+        default: 0
+    },
+    numHard: {
+        type: Number,
+        default: 0
+    },
+    easyAccuracy: {
+        type: Number,
+        default: 0
+    },
+    hardAccuracy: {
+        type: Number,
+        deafult: 0
     }
 });
 

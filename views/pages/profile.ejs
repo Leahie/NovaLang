@@ -113,18 +113,32 @@
 
             border: 0.35vw solid black;
             border-radius: 1vw;
-            width: 15vw; height: 5vw;
+            width: 25vw; height: 5vw;
+            
+            font-size: 1.35em;
+
+            color: black;
+            text-decoration: underline;
+
+            transition: 0.3s;
+        }
+
+        #levelItem_num a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            border: 0.35vw solid black;
+            border-radius: 1vw;
+            width: 25vw; height: 7.5vw;
+            
+            font-size: 3em;
 
             color: black;
             text-decoration: none;
 
             transition: 0.3s;
-        }
-
-        #levelItem a:hover {
-            transform: scale(1.1);
-            border: 0.6vw solid black;
-            background-color: #ddf5f9;
         }
 
         #promptTextBox {
@@ -141,67 +155,65 @@
 
         <h1><strong>HELLO THERE, <i><%= username %></i>!</strong></h1>
 
-        <br><br><hr><br><br>
-
-        <h3>Waht would you like to write today?</h3>
-        
     </div>
     
     <div id="border">
-        <h2><strong>LEVELS</strong></h2>
+        <h2><strong>STATISTICS</strong></h2>
+
+        <br><br><br>
         
-        <br><br>
-
-        <p id="sortByText">Difficulty:</p>
-
-        <br>
-
-        <table>
-            <tr id="categorySwitcher">
-                <td><button id="diff_easy" onclick="diff_easy()">Easy</button></td>
-                <td><button id="diff_med" onclick="diff_med()">Medium</button></td>
-                <td><button id="diff_hard" onclick="diff_hard()">Hard</button></td>
-            </tr>
-        </table>
-
-        <br><br><hr><br><br>
-
         <div>
-            <p id="sortByText"><i><u>Authors</u></i></p>
             <br>
             <table class="categoryTable">
                 <tr>
-                    <td><div id="levelItem"><a id="author_shakespeare" onclick="author_shakespeare()">William Shakespeare</a></div></td>
-                    <td><div id="levelItem"><a id="author_decervantes" onclick="author_decervantes()">Miguel de Cervantes</a></div></td>
-                    <td><div id="levelItem"><a id="author_oda" onclick="author_oda()">Eiichiro Oda</a></div></td>
+                    <td><div id="levelItem"><a onclick="return false;">Number of "Easy" Completed: </a></div></td>
+                    <td><div id="levelItem"><a onclick="return false;">Accuracy of "Easy" Completed:</a></div></td>
                 </tr>
-            </table>
-        </div>
 
-        <br><br><hr><br><br>
-
-        <div>
-            <p id="sortByText"><i><u>Prompt</u></i></p>
-            <br>
-            <table class="categoryTable">
                 <tr>
-                    <td><input id="promptTextBox" type="text" name="prompt"></td>
-                </tr>
-            </table>
-        </div>
-        
-        <br><br><hr><br><br>
-
-        <div>
-            <table class="categoryTable">
-                <tr>
-                    <td><div id="levelItem"><a style="border: 0.35vw solid blue; font-weight: bolder; font-size: 1.5em;" onclick="submit()">Generate!</a></div></td>                    
+                    <td><div id="levelItem_num"><b><i><a id="stats_numEasy" onclick="return false;">--</a></i></b></div></td>
+                    <td><div id="levelItem_num"><b><i><a id="stats_easyAccuracy" onclick="return false;">--</a></i></b></div></td>
                 </tr>
             </table>
         </div>
 
-        
     </div>
+
+    <script>
+        let html_stats_numEasy = document.getElementById("stats_numEasy");
+        let html_stats_easyAccuracy = document.getElementById("stats_easyAccuracy");
+
+        handleUserData()
+
+        async function getJSON(){
+            return fetch('http://localhost:3000/key')
+                .then(response => response.json())
+                .then(data => {
+                return data;
+            });
+        }
+
+        async function handleUserData() {
+            try {
+                console.log("==========================================================================")
+                let allDict = await getJSON();
+                let userDict = allDict["currUser"];
+
+                let userId = userDict["_id"];
+                let numEasy = userDict["numEasy"];
+                let easyAccuracy = userDict["easyAccuracy"];
+
+                html_stats_numEasy.innerText = numEasy;
+                html_stats_easyAccuracy.innerText = easyAccuracy*100 + "%";
+
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        }
+
+
+
+    </script>
 
     <script>
         let diff_easy_id = document.getElementById("diff_easy");

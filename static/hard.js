@@ -83,6 +83,14 @@ if(keybinds){
     });
 }
 
+async function getJSON(){
+  return fetch('http://localhost:3000/key')
+    .then(response => response.json())
+    .then(data => {
+      return data;
+  });
+}
+
 
 // Pressing one of the lis 
 function next(option, countTrue=true, add=1, curr=count){
@@ -142,6 +150,8 @@ function next(option, countTrue=true, add=1, curr=count){
       selected = textBody[modifyList[countTemp]];
       generateText(countTemp);      
       }
+      console.log("donezo????????????????????????????????")
+
   }
   
 }

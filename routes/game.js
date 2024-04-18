@@ -5,6 +5,9 @@ const fs = require("fs")
 require('dotenv').config()
 const allAuthors = ["Shakespeare", "De Cervantes", "Oda"];
 
+const User = require('../models/user');
+
+
 function processing(txt){
     return new Promise((resolve, reject)=>{
         fs.readFile(txt, (err, inputD) => {
@@ -138,7 +141,7 @@ router.get('/easy', async (req, res)=>{
         console.log(Math.floor(sentence.length/10)+1)
         nums = nums.sort(function(a, b){return a-b})
         console.log(sentence)
-        
+
         res.render("pages/home",  {text: JSON.stringify(sentence), 
             modifylist: JSON.stringify(nums), 
             modifiers: ['magically', 'organically', 'going'], 
@@ -235,6 +238,39 @@ router.get('/hard', async (req, res) =>{
             cadaAuthor : allAuthors
             })
         }
+});
+
+
+
+router.post('/updateNumEasy', async (req, res) => {
+    try {
+        const newNumEasy = req.body.newNumEasy;
+        const newEasyAccuracy = req.body.newEasyAccuracy;
+        const userId = req.body.id;
+
+        // Update the numEasy field for the user in the database
+        await User.findByIdAndUpdate(userId, { numEasy: newNumEasy , easyAccuracy: newEasyAccuracy });
+
+        res.sendStatus(200); // Send a success response
+    } catch (error) {
+        console.error("Error updating numEasy:", error);
+        res.sendStatus(500); // Send a server error response
+    }
+});
+
+
+router.post('/updateNumHard', async (req, res) => {
+    try {
+        const newNumEasy = req.body.newNumHard;
+        const userId = req.body.id;
+
+        await User.findByIdAndUpdate(userId, { numHard: newNumHard });
+
+        res.sendStatus(200); // Send a success response
+    } catch (error) {
+        console.error("Error updating numHard:", error);
+        res.sendStatus(500); // Send a server error response
+    }
 });
 
 module.exports = router;

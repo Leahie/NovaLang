@@ -27,6 +27,8 @@ const db = mongoose.connection;
 /* 
 db.on("error", console.error.bind(console, "connection error:"));
 */
+// db.collection.update({ "_id" : "660c6a3190bdd2f44452021c" }, {$inc: { "numEasy" : 1}} )
+
 db.once("open", () => {
     console.log("Database connected");
 });
@@ -106,8 +108,10 @@ app.get('/key', async(req, res)=>{
     res.setHeader('Content-Type', 'application/json');
     key = {
         "token" : process.env.TOKEN,
-        "ninja_key": process.env.NINJA_KEY
+        "ninja_key" : process.env.NINJA_KEY,
+        "currUser" : res.locals.currentUser
     }
+    console.log(res.locals.currentUser);
     res.send(JSON.stringify(key))
 })
 //////////////////////////////////////// LOG IN AND SIGN OUT

@@ -3,9 +3,8 @@
 # Structure of This README
   1. [Running On Your Machine](#how-to-run-the-project)
   2. [How to Navigate the Folder Structure](#navigating-the-folder-structure)
-  3. Machine Learning component
-  4. Web Development component
-  5. [Frameworks & Languages](#frameworks--languages)
+  3. [Web Development Component](#web-development-component)
+  5. Summary
 
 # How to Run the Project
   1. Clone the Repository
@@ -30,8 +29,16 @@ This folder contains our static CSS & Javascript models. A majority of the game'
 ### Views Folder
 Our views folder holds the structure of the website. Each /get route corresponds with an EJS page. Inside the views folder, we split the structure into layout, pages, partials, and users. The **users** folder holds the pages for login, sign-in, and sign-out. The **pages** folder holds the games and profile. The rest of the elements follow in a similar manner. 
 
-# Frameworks & Languages
-## Node JS
+# Web Development Component 
+## Frameworks & Languages
+### Node JS + EJS 
+Google describes Node.js as "a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more. Node.js runs on the V8 JavaScript engine and executes JavaScript code outside a web browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting." EJS is a templating engine used by Node.JS; it functions similarly to HTML, however, you can pass backend components from your node.js server to your EJS file through objects. 
 
-## EJS 
-## 
+The reason we choose Node.js over other platforms like Next.JS or Flask is because Node.js is lightweight. Its backend is convenient and it has access to many frameworks like Express, and Passport, which we use in our app. Later, if we want to focus more on security, we might migrate to Rust. 
+
+### Passport.JS
+This is how we store user data. [Passport.JS](https://www.passportjs.org/)) uses Bcrypt, a hashing algorithm, to encode passwords and prevent security concerns. 
+## Our Code 
+
+
+

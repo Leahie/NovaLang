@@ -19,22 +19,16 @@
 This folder contains all the files we used to fine-tune Gemini. We mainly used **model.py**, as it holds our training loop and our calls to Huggingface. The basic structure of natural language processing is having a tokenizer and a mode. Models don't understand words so the tokenizer converts the words into numbers. In **model.py** you can see we called the tokenizer and model for Gemma as well as the "shakespear" dataset. Our training loop consists of three epochs with batch sizes of 33. Unfortunately, this is smaller than what we hoped because of the immense time and size of Google's Gemini. To go through this training loop took 24+ hours and it filled our 5GB 4060 NVIDIA GPU immediately forcing the computer to reply on its CPU. The model details are uploaded on [Huggingface](https://huggingface.co/Liehe/GeminiShakespeare/tree/main/results), because of Github's storage space limit, it is not uploaded here. 
 
 ### Models Folder 
-This contains the user model for Mongo, a database. Databases like MySQL & Oracle hold data electronically in a computer system. We used this folder to connect the Node.js environment with MongoDB. The user-model currently contains the email, username, number of games played for easy and hard, and the user's accuracy. In the future, we hope to expand this to hold levels and badges. 
+This contains the user model for MongoDB, a database. Databases like MySQL & Oracle hold data electronically in a computer system. We used this folder to connect the Node.js environment with MongoDB. The user-model currently contains the email, username, number of games played for easy and hard, and the user's accuracy. In the future, we hope to expand this to hold levels and badges. 
 
 ### Routes Folder 
-Routes are a way to declutter the index.js file by grouping url routes based on topic. The folder contains the **user.js** route and the **game.js** route. The former includes the login, logout, and signup routes and the latter includes the different game modes and calls to the ML model. 
+Routes are a way to declutter the index.js file by grouping url routes based on topic. The folder contains the **user.js** route and the **game.js** route. The former includes the login, logout, and signup routes and the latter includes the different game modes and calls the ML model. 
 
 ### Static Folder
-This folder contains our CSS and 
+This folder contains our static CSS & Javascript models. A majority of the game's logic lies here. In particular, the **home.js** & **hard.js** files contain the logic for the easy and hard modes. 
 
 ### Views Folder
-
-
-## Node JS
-
-## EJS 
-##
-
+Our views folder holds the structure of the website. Each /get route corresponds with an EJS page. Inside the views folder, we split the structure into layout, pages, partials, and users. The **users** folder holds the pages for login, sign-in, and sign-out. The **pages** folder holds the games and profile. The rest of the elements follow in a similar manner. 
 
 # Frameworks & Languages
 ## Node JS

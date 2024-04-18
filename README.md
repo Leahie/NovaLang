@@ -15,12 +15,14 @@
   5. Run the server locally using "node index" 
 
 # Navigate the Folder Structure
-### ml folder 
+### ML Folder 
+This folder contains all the files we used to fine-tune Gemini. We mainly used **model.py**, as it holds our training loop and our calls to Huggingface. The basic structure of natural language processing is having a tokenizer and a mode. Models don't understand words so the tokenizer converts the words into numbers. In **model.py** you can see we called the tokenizer and model for Gemma as well as the "shakespear" dataset. Our training loop consists of three epochs with batch sizes of 33. Unfortunately, this is smaller than what we hoped because of the immense time and size of Google's Gemini. To go through this training loop took 24+ hours and it filled our 5GB 4060 NVIDIA GPU immediately forcing the computer to reply on its CPU. The model details are [here]([url](https://huggingface.co/Liehe/GeminiShakespeare/tree/main/results)), because of Github's storage space limit, it is not uploaded here. 
 
-### models folder 
-### routes folder 
-### static folder
-### views folder
+### Models Folder 
+
+### Routes Folder 
+### Static Folder
+### Views Folder
 
 
 ## Node JS

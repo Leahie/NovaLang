@@ -1,5 +1,5 @@
 # NovaLang
-### Link to our documentation for the [MIT 2024 CRE[AT]E Challenge ]([url](https://docs.google.com/document/d/1ISRHYOTrsMIY67lTsfBSpmv2sFc6XUVt2Ec82_-jRlA/edit))
+### Link to our documentation for the [MIT 2024 CRE[AT]E Challenge ](https://docs.google.com/document/d/1ISRHYOTrsMIY67lTsfBSpmv2sFc6XUVt2Ec82_-jRlA/edit)
 # Structure of This README
   1. [Running On Your Machine](#how-to-run-the-project)
   2. [How to Navigate the Folder Structure](#navigating-the-folder-structure)

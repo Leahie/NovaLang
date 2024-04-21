@@ -33,7 +33,7 @@ router.get('/login',  (req,res)=>{
 /// A LOT OF HAND WAVY PASSPORT METHODS 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/login'}), (req, res)=>{
     req.flash('success', 'Welcome Back '+ req.user.username)
-    res.redirect('/nova')
+    res.redirect('/')
 })
 
 router.get('/logout', (req, res, next) => {
@@ -42,7 +42,7 @@ router.get('/logout', (req, res, next) => {
             return next(err);
         }
         req.flash('success', 'Logged Out!');
-        res.redirect('/nova');
+        res.redirect('/');
     });
 }); 
 

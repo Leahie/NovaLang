@@ -111,22 +111,34 @@
             align-items: center;
             text-align: center;
 
-            user-select: none;
+            border: 0.35vw solid black;
+            border-radius: 1vw;
+            width: 25vw; height: 5vw;
+            
+            font-size: 1.35em;
+
+            color: black;
+            text-decoration: underline;
+
+            transition: 0.3s;
+        }
+
+        #levelItem_num a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
 
             border: 0.35vw solid black;
             border-radius: 1vw;
-            width: 15vw; height: 5vw;
+            width: 25vw; height: 7.5vw;
+            
+            font-size: 3em;
 
             color: black;
             text-decoration: none;
 
             transition: 0.3s;
-        }
-
-        #levelItem a:hover {
-            transform: scale(1.1);
-            border: 0.6vw solid black;
-            background-color: #ddf5f9;
         }
 
         #promptTextBox {
@@ -138,63 +150,70 @@
 
 
     </style>
-    
 
     <div id="border" style="margin-top: 2vw;">
 
-        <h1><strong>WELCOME TO <i>NovaLang</i>!</strong></h1>
+        <h1><strong>HELLO THERE, <i><%= username %></i>!</strong></h1>
 
-        <br><br><hr><br><br>
-
-        <h3>Nova Lang is a web-application that simulates social situations through the usage of a large language model (LLM) trained on famous texts, designed to help kids improve writing and communication skills by using works of famous authors.</h3>
-        
     </div>
     
     <div id="border">
-        <h2><strong>LEVELS</strong></h2>
+        <h2><strong>STATISTICS</strong></h2>
+
+        <br><br><br>
         
-        <br><br>
-
-        <p id="sortByText">Difficulty:</p>
-
-        <br>
-
-        <table>
-            <tr id="categorySwitcher">
-                <td><button id="diff_easy" onclick="diff_easy()">Easy</button></td>          
-                <td><button id="diff_med" onclick="diff_med()">Medium</button></td> 
-                <td><button id="diff_hard" onclick="diff_hard()">Hard</button></td>
-            </tr>
-        </table>
-
-        <br><br><hr><br><br>
-
         <div>
-            <p id="sortByText"><i><u>Authors</u></i></p>
             <br>
             <table class="categoryTable">
                 <tr>
-                    <td><div id="levelItem"><a id="author_shakespeare" onclick="author_shakespeare()" >William Shakespeare</a></div></td>
-                    <td><div id="levelItem"><a id="author_decervantes" onclick="author_decervantes()">Miguel de Cervantes</a></div></td>
-                    <td><div id="levelItem"><a id="author_oda" onclick="author_oda()">Eiichiro Oda</a></div></td>
+                    <td><div id="levelItem"><a onclick="return false;">Number of "Easy" Completed: </a></div></td>
+                    <td><div id="levelItem"><a onclick="return false;">Accuracy of "Easy" Completed:</a></div></td>
+                </tr>
+
+                <tr>
+                    <td><div id="levelItem_num"><b><i><a id="stats_numEasy" onclick="return false;">--</a></i></b></div></td>
+                    <td><div id="levelItem_num"><b><i><a id="stats_easyAccuracy" onclick="return false;">--</a></i></b></div></td>
                 </tr>
             </table>
         </div>
 
-        <br><br><hr><br><br>
-
-        <div>
-            <p id="sortByText"><i><u>Prompt</u></i></p>
-            <br>
-            <table class="categoryTable">
-                <tr>
-                    <td><input autocomplete="off" id="promptTextBox" type="text" name="prompt"><button style = "background-color:#000" onclick="submit()"><img id = "theImage" src = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTFHuZW2Xd8oXfiHJOBPhY4M45FOnMZTW98mGZErVF-DvQQtDoU" length = "45" width="30" height="25"></button></td>
-                </tr>
-            </table>
-            
-        </div>
-        
     </div>
+
+    <script>
+        let html_stats_numEasy = document.getElementById("stats_numEasy");
+        let html_stats_easyAccuracy = document.getElementById("stats_easyAccuracy");
+
+        handleUserData()
+
+        async function getJSON(){
+            return fetch('http://localhost:3000/key')
+                .then(response => response.json())
+                .then(data => {
+                return data;
+            });
+        }
+
+        async function handleUserData() {
+            try {
+                console.log("==========================================================================")
+                let allDict = await getJSON();
+                let userDict = allDict["currUser"];
+
+                let userId = userDict["_id"];
+                let numEasy = userDict["numEasy"];
+                let easyAccuracy = userDict["easyAccuracy"];
+
+                html_stats_numEasy.innerText = numEasy;
+                html_stats_easyAccuracy.innerText = easyAccuracy*100 + "%";
+
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        }
+
+
+
+    </script>
 
     <script>
         let diff_easy_id = document.getElementById("diff_easy");
@@ -276,8 +295,6 @@
         // SUBMIT
         function submit()
         {
-            document.getElementById("theImage").src="https://blog.motionisland.com/wp-content/uploads/2019/09/After-Effects-Arrow-25.gif";
-
             // PROMPT
             promptText = promptTextBox.value;
             console.log(difficulty);
@@ -291,7 +308,7 @@
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    window.location.href = '/easy';
+                    window.location.href = '/nova';
                 }
             };
 

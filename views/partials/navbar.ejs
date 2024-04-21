@@ -5,23 +5,27 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav" id = "minn">
-          <a class="nav-link active" id = "heading" aria-current="page" href="/nova">Nova</a>
-          <a class="nav-link " id = "heading" href="/tutorial">Tutorial</a>
-          <a class="nav-link " id = "heading" href="/wrong">Writer 3 </a>
-          <header>
-            <button class="darkmode" title="darkmode switch" aria-hidden="true"></button>
-          </header>
+        <div class="navbar-nav" >
+          <a class="nav-link active" id = "heading" aria-current="page" href="/easy">Nova</a>
+          <a class="nav-link " id = "heading" href="/tutorial">Test the Authorization</a>
         </div>
+        
+      </div>
+      <div class="navbar-nav ml-auto">
+        <% if(!currentUser){ %>
+        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/register">Register</a>
+        <% } else {%>
+        <a class="nav-link" href="/profile">Profile</a>
+        <a class="nav-link" href="/logout">Logout</a>
+        <% } %>
       </div>
     </div>
   </nav>
 
-  <nav class= "nav-bar one"> 
-    <ul> 
-      <li><a href = "#"> easy </a> </li>
-      <li><a href = "#"> medium </a> </li>
-      <li><a href = "#"> hard </a> </li>
-    </ul>
-    
-  </nav>
+<!-- I literally don't know how to move this 
+
+  <header>
+    <button class="darkmode" title="darkmode switch" aria-hidden="true"></button>
+</header>
+ -->
